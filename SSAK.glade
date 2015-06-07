@@ -727,22 +727,23 @@ Examples:
                           <object class="GtkBox" id="box21">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_right">10</property>
                             <property name="homogeneous">True</property>
                             <child>
                               <object class="GtkBox" id="box23">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="orientation">vertical</property>
-                                <property name="homogeneous">True</property>
                                 <child>
                                   <object class="GtkLabel" id="label21">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Embed</property>
+                                    <property name="label" translatable="yes">EMBED</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">True</property>
+                                    <property name="padding">10</property>
                                     <property name="position">0</property>
                                   </packing>
                                 </child>
@@ -978,16 +979,16 @@ Examples:
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="orientation">vertical</property>
-                                <property name="homogeneous">True</property>
                                 <child>
                                   <object class="GtkLabel" id="label22">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Extract</property>
+                                    <property name="label" translatable="yes">EXTRACT</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">True</property>
+                                    <property name="padding">10</property>
                                     <property name="position">0</property>
                                   </packing>
                                 </child>
