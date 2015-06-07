@@ -166,7 +166,7 @@ class SSAK:
 			self.nofiledialog.show()
 
 	def __init__(self):
-		gladefile = "SSAK.glade"
+		gladefile = execdir + "/SSAK.glade"
 		self.builder = Gtk.Builder()
 		self.builder.add_from_file(gladefile)
 		self.window = self.builder.get_object("window1")
