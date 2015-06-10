@@ -145,7 +145,7 @@ class SSAK:
 		self.sfile = self.file.get_text()
 		self.password = self.builder.get_object("entry4")
 		self.spass = self.password.get_text()
-		if self.sfile != '' and self.password != '':
+		if self.sfile != '' and self.spass != '':
 			head, tail = os.path.split(self.sfile)
 			outdir = home + tail + '/jpseek'
 			if not os.path.isdir(outdir):
