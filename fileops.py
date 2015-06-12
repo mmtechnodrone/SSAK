@@ -33,7 +33,7 @@ class fileops:
 			self.textview2 = self.builder.get_object("textview2")
 			self.textbuffer = self.builder.get_object("textbuffer2")
 			sfile = self.file.get_text()
-			cmd = 'metadata-extractor2 ' + sfile
+			cmd = 'java -jar ' + execdir + '/programs/metadata-extractor2-2.jar ' + sfile
 			proc = Popen(cmd, shell = True,stdout=PIPE)
 			self.textbuffer.set_text(str(proc.communicate()[0]))
 		else:
