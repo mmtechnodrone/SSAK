@@ -7,6 +7,14 @@ execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
 
 class fileops:
 
+	def showerr(self):
+		def hidedialog(widget):
+			self.nofiledialog.hide()
+		self.nofiledialog = self.builder.get_object("dialog1")
+		self.nofiledialogbutton = self.builder.get_object("button5")
+		self.nofiledialogbutton.connect("clicked",hidedialog)
+		self.nofiledialog.show()
+
 	def fileselect(self, widget):
 		self.file = self.builder.get_object("entry1")
 		chooser = Gtk.FileChooserDialog("Select file to Analyze", None, Gtk.FileChooserAction.SAVE, (Gtk.STOCK_CANCEL,Gtk.ResponseType.CANCEL,Gtk.STOCK_SAVE,Gtk.ResponseType.OK))
@@ -28,21 +36,22 @@ class fileops:
 
 	def exif(self, widget):
 		self.file = self.builder.get_object("entry1")
+		self.fileinfo = self.builder.get_object("entry3")
+		filetype = self.fileinfo.get_text()
 		sfile = self.file.get_text()
+		self.textbuffer = self.builder.get_object("textbuffer2")
 		if sfile != '':
-			self.textview2 = self.builder.get_object("textview2")
-			self.textbuffer = self.builder.get_object("textbuffer2")
-			sfile = self.file.get_text()
-			cmd = 'java -jar ' + execdir + '/programs/metadata-extractor2-2.jar ' + sfile
-			proc = Popen(cmd, shell = True,stdout=PIPE)
-			self.textbuffer.set_text(str(proc.communicate()[0]))
-		else:
-			def hidedialog(widget):
-				self.nofiledialog.hide()
-			self.nofiledialog = self.builder.get_object("dialog1")
-			self.nofiledialogbutton = self.builder.get_object("button5")
-			self.nofiledialogbutton.connect("clicked",hidedialog)
-			self.nofiledialog.show()
+			if "JPEG" in filetype:
+				self.textview2 = self.builder.get_object("textview2")
+				cmd = 'java -cp ' + execdir + '/programs/metadata-extractor2-2.jar:' + execdir + '/programs/xmpcore.jar com.drew.imaging.ImageMetadataReader ' + sfile
+				print cmd				
+				proc = Popen(cmd, shell = True,stdout=PIPE)
+				self.textbuffer.set_text(str(proc.communicate()[0]))
+			else:
+				self.textbuffer.set_text("File must be jpeg/jpg!!!")	
+		else:		
+			self.showerr()
+						
 
 	def strings(self, widget):
 		self.file = self.builder.get_object("entry1")
@@ -57,12 +66,7 @@ class fileops:
 			proc = Popen(cmd, shell = True,stdout=PIPE)
 			self.textbuffer.set_text(str(proc.communicate()[0]))
 		else:
-			def hidedialog(widget):
-				self.nofiledialog.hide()
-			self.nofiledialog = self.builder.get_object("dialog1")
-			self.nofiledialogbutton = self.builder.get_object("button5")
-			self.nofiledialogbutton.connect("clicked",hidedialog)
-			self.nofiledialog.show()
+			self.showerr()
 
 	def strings2(self, widget):
 		self.file = self.builder.get_object("entry1")
@@ -78,12 +82,7 @@ class fileops:
 			proc = Popen(cmd, shell = True,stdout=PIPE)
 			self.textbuffer.set_text(str(proc.communicate()))
 		else:
-			def hidedialog(widget):
-				self.nofiledialog.hide()
-			self.nofiledialog = self.builder.get_object("dialog1")
-			self.nofiledialogbutton = self.builder.get_object("button5")
-			self.nofiledialogbutton.connect("clicked",hidedialog)
-			self.nofiledialog.show()
+			self.showerr()
 
 	def carveit2(self, widget):
 		self.file = self.builder.get_object("entry1")
@@ -95,10 +94,5 @@ class fileops:
 			cmd = 'scalpel -c /etc/scalpel.conf -o ' + outdir + ' ' + sfile
 			proc = Popen(cmd, shell = True)
 		else:
-			def hidedialog(widget):
-				self.nofiledialog.hide()
-			self.nofiledialog = self.builder.get_object("dialog1")
-			self.nofiledialogbutton = self.builder.get_object("button5")
-			self.nofiledialogbutton.connect("clicked",hidedialog)
-			self.nofiledialog.show()
+			self.showerr()
 
