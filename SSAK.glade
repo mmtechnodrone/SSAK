@@ -908,6 +908,7 @@ Examples:
                                           <object class="GtkEntry" id="entry7">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
+                                            <property name="editable">False</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
