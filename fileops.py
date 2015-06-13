@@ -1,4 +1,4 @@
-import os, pwd, sys, gi
+import os, pwd, sys, gi, time
 from subprocess import Popen, PIPE
 from gi.repository import Gtk
 
@@ -43,8 +43,7 @@ class fileops:
 		if sfile != '':
 			if "JPEG" in filetype:
 				self.textview2 = self.builder.get_object("textview2")
-				cmd = 'java -cp ' + execdir + '/programs/metadata-extractor2-2.jar:' + execdir + '/programs/xmpcore.jar com.drew.imaging.ImageMetadataReader ' + sfile
-				print cmd				
+				cmd = 'java -cp ' + execdir + '/programs/metadata-extractor2-2.jar:' + execdir + '/programs/xmpcore.jar com.drew.imaging.ImageMetadataReader ' + sfile			
 				proc = Popen(cmd, shell = True,stdout=PIPE)
 				self.textbuffer.set_text(str(proc.communicate()[0]))
 			else:
@@ -90,8 +89,13 @@ class fileops:
 		if sfile != '':
 			head, tail = os.path.split(sfile)
 			outdir = home + tail + '/foremost'
+			if os.path.isdir(outdir):
+				cmd = 'rm -rf ' + outdir
+				proc = Popen(cmd, shell = True)
+				time.sleep(3)
 			os.mkdir(outdir)
 			cmd = execdir + '/programs/foremost -c ' + execdir + '/programs/foremost.conf -o ' + outdir + ' -i ' + sfile
+			proc = Popen(cmd, shell = True)
 		else:
 			self.showerr()
 
