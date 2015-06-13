@@ -62,7 +62,7 @@ class fileops:
 			self.textview = self.builder.get_object("textview1")
 			self.textbuffer = self.builder.get_object("textbuffer1")
 			sfile = self.file.get_text()
-			cmd = 'strings ' + sfile
+			cmd = execdir + '/programs/strings ' + sfile
 			proc = Popen(cmd, shell = True,stdout=PIPE)
 			self.textbuffer.set_text(str(proc.communicate()[0]))
 		else:
@@ -78,7 +78,7 @@ class fileops:
 			self.textview = self.builder.get_object("textview1")
 			self.textbuffer = self.builder.get_object("textbuffer1")
 			sfile = self.file.get_text()
-			cmd = 'strings ' + sfile
+			cmd = execdir + '/programs/strings ' + sfile
 			proc = Popen(cmd, shell = True,stdout=PIPE)
 			self.textbuffer.set_text(str(proc.communicate()))
 		else:
@@ -92,8 +92,6 @@ class fileops:
 			outdir = home + tail + '/foremost'
 			os.mkdir(outdir)
 			cmd = execdir + '/programs/foremost -c ' + execdir + '/programs/foremost.conf -o ' + outdir + ' -i ' + sfile
-			cmd2 = 'scalpel -c /etc/scalpel.conf -o ' + outdir + ' ' + sfile
-			proc = Popen(cmd, shell = True)
 		else:
 			self.showerr()
 
