@@ -38,8 +38,8 @@ class fileops:
 		self.file = self.builder.get_object("entry1")
 		self.fileinfo = self.builder.get_object("entry3")
 		filetype = self.fileinfo.get_text()
-		sfile = self.file.get_text()
 		self.textbuffer = self.builder.get_object("textbuffer2")
+		sfile = self.file.get_text()
 		if sfile != '':
 			if "JPEG" in filetype:
 				self.textview2 = self.builder.get_object("textview2")
@@ -89,9 +89,10 @@ class fileops:
 		sfile = self.file.get_text()
 		if sfile != '':
 			head, tail = os.path.split(sfile)
-			outdir = home + tail + '/scalpel'
+			outdir = home + tail + '/foremost'
 			os.mkdir(outdir)
-			cmd = 'scalpel -c /etc/scalpel.conf -o ' + outdir + ' ' + sfile
+			cmd = execdir + '/programs/foremost -c ' + execdir + '/programs/foremost.conf -o ' + outdir + ' -i ' + sfile
+			cmd2 = 'scalpel -c /etc/scalpel.conf -o ' + outdir + ' ' + sfile
 			proc = Popen(cmd, shell = True)
 		else:
 			self.showerr()
