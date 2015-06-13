@@ -65,6 +65,11 @@ class SSAK(openstego, jphs, fileops):
 		checkbutton3 = self.builder.get_object("checkbutton3")
 		checkbutton3.connect("toggled", self.togglepass)
 
+		# openstegextract
+		self.ostegextract = self.builder.get_object("button7")
+		self.ostegextract.connect("clicked", self.ostegextract2)
+		checkbutton4 = self.builder.get_object("checkbutton1")
+		checkbutton4.connect("toggled", self.togglepass2)
 
 SSAK=SSAK()
 Gtk.main()

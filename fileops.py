@@ -39,6 +39,7 @@ class fileops:
 		self.fileinfo = self.builder.get_object("entry3")
 		filetype = self.fileinfo.get_text()
 		self.textbuffer = self.builder.get_object("textbuffer2")
+		self.buffer1 = self.builder.get_object("textbuffer3")
 		sfile = self.file.get_text()
 		if sfile != '':
 			if "JPEG" in filetype:
@@ -48,13 +49,14 @@ class fileops:
 				self.textbuffer.set_text(str(proc.communicate()[0]))
 			else:
 				self.textbuffer.set_text("File must be jpeg/jpg!!!")	
-		else:		
+		else:	
+			self.buffer1.set_text("Please select a file from the file menu!")	
 			self.showerr()
 						
-
 	def strings(self, widget):
 		self.file = self.builder.get_object("entry1")
 		sfile = self.file.get_text()
+		self.buffer1 = self.builder.get_object("textbuffer3")
 		if sfile != '':
 			# runs strings command on input file and 
 			# outputs the result into textbuffer for display
@@ -65,11 +67,13 @@ class fileops:
 			proc = Popen(cmd, shell = True,stdout=PIPE)
 			self.textbuffer.set_text(str(proc.communicate()[0]))
 		else:
+			self.buffer1.set_text("Please select a file from the file menu!")	
 			self.showerr()
 
 	def strings2(self, widget):
 		self.file = self.builder.get_object("entry1")
 		sfile = self.file.get_text()
+		self.buffer1 = self.builder.get_object("textbuffer3")
 		if sfile != '':
 			# runs strings command on input file and 
 			# outputs the result into textbuffer for display
@@ -81,10 +85,12 @@ class fileops:
 			proc = Popen(cmd, shell = True,stdout=PIPE)
 			self.textbuffer.set_text(str(proc.communicate()))
 		else:
+			self.buffer1.set_text("Please select a file from the file menu!")	
 			self.showerr()
 
 	def carveit2(self, widget):
 		self.file = self.builder.get_object("entry1")
+		self.buffer1 = self.builder.get_object("textbuffer3")
 		sfile = self.file.get_text()
 		if sfile != '':
 			head, tail = os.path.split(sfile)
@@ -97,5 +103,6 @@ class fileops:
 			cmd = execdir + '/programs/foremost -c ' + execdir + '/programs/foremost.conf -o ' + outdir + ' -i ' + sfile
 			proc = Popen(cmd, shell = True)
 		else:
+			self.buffer1.set_text("Please select a file from the file menu!")	
 			self.showerr()
 
