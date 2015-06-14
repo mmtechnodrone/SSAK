@@ -27,9 +27,10 @@ class fileops:
 			if not os.path.isdir(home + fileselected):
 				os.mkdir(home + fileselected)
 			cmd = 'file -b ' + re.escape(self.filename)
-			proc = Popen(cmd, shell = True,stdout=PIPE)
+			proc = Popen(cmd, shell = True,stdout=PIPE).communicate()[0]
 			self.fileinfo = self.builder.get_object("entry3")
-			self.fileinfo.set_text(''.join(str(proc.communicate()[0])))
+			for cake in proc.splitlines():
+				self.fileinfo.set_text(cake)
 			chooser.destroy()
 		elif response == Gtk.ResponseType.CANCEL:
 			chooser.destroy()
