@@ -49,7 +49,7 @@ class jphs:
 			os.remove(execdir + "/programs/jphide.sh")
 		else:
 			self.buffer1.set_text("You must select a valid input JPEG input file, a valid hide file and a password")
-			self.showdiag(execdir + "/programs/jphide.sh")
+			self.showdiag()
 
 	def jpseekit2(self, widget):
 		self.file = self.builder.get_object("entry1")
