@@ -4,7 +4,7 @@ from subprocess import Popen, PIPE
 
 home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
 execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
-stegprog = 'java -jar ' + execdir + '/programs/openstego.jar '
+stegprog = 'java -jar ' + re.escape(execdir) + '/programs/openstego.jar '
 
 class openstego:
 
@@ -65,7 +65,7 @@ class openstego:
 				self.buffer1.set_text("If you select the password option you must fill in the password entry!")
 				self.showdiag()
 			else:			
-				cmd = stegprog + ' --embed --algorithm ' + self.algorithm2 + ' --messagefile ' + self.hidefile2 + ' --coverfile ' + self.sfile + ' --stegofile ' + self.outfile2
+				cmd = stegprog + ' --embed --algorithm ' + self.algorithm2 + ' --messagefile ' + re.escape(self.hidefile2) + ' --coverfile ' + re.escape(self.sfile) + ' --stegofile ' + re.escape(self.outfile2)
 				if value2 == "ON":
 					cmd += ' --compress '
 				elif value2 == "OFF":
@@ -110,7 +110,7 @@ class openstego:
 				self.buffer1.set_text("If you select the password option you must fill in the password entry!")
 				self.showdiag()
 			else:
-				cmd = stegprog + ' extract --algorithm=' + self.algorithm3 + ' --stegofile=' + self.sfile + ' --extractdir=' + outdir
+				cmd = stegprog + ' extract --algorithm=' + self.algorithm3 + ' --stegofile=' + re.escape(self.sfile) + ' --extractdir=' + re.escape(outdir)
 				if value3 == "ON":
 					cmd += ' --password=' + self.spass
 				proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)

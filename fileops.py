@@ -1,4 +1,4 @@
-import os, pwd, sys, gi, time
+import os, pwd, sys, gi, time, re
 from subprocess import Popen, PIPE
 from gi.repository import Gtk
 
@@ -26,10 +26,10 @@ class fileops:
 			fileselected = tail
 			if not os.path.isdir(home + fileselected):
 				os.mkdir(home + fileselected)
-			cmd = 'file -b ' + self.filename
+			cmd = 'file -b ' + re.escape(self.filename)
 			proc = Popen(cmd, shell = True,stdout=PIPE)
 			self.fileinfo = self.builder.get_object("entry3")
-			self.fileinfo.set_text(str(proc.communicate()[0]))
+			self.fileinfo.set_text(''.join(str(proc.communicate()[0])))
 			chooser.destroy()
 		elif response == Gtk.ResponseType.CANCEL:
 			chooser.destroy()
@@ -44,7 +44,7 @@ class fileops:
 		if sfile != '':
 			if "JPEG" in filetype:
 				self.textview2 = self.builder.get_object("textview2")
-				cmd = 'java -cp ' + execdir + '/programs/metadata-extractor2-2.jar:' + execdir + '/programs/xmpcore.jar com.drew.imaging.ImageMetadataReader ' + sfile			
+				cmd = 'java -cp ' + re.escape(execdir) + '/programs/metadata-extractor2-2.jar:' + re.escape(execdir) + '/programs/xmpcore.jar com.drew.imaging.ImageMetadataReader ' + re.escape(sfile)			
 				proc = Popen(cmd, shell = True,stdout=PIPE)
 				self.textbuffer.set_text(str(proc.communicate()[0]))
 			else:
@@ -63,7 +63,7 @@ class fileops:
 			self.textview = self.builder.get_object("textview1")
 			self.textbuffer = self.builder.get_object("textbuffer1")
 			sfile = self.file.get_text()
-			cmd = execdir + '/programs/strings ' + sfile
+			cmd = re.escape(execdir) + '/programs/strings ' + re.escape(sfile)
 			proc = Popen(cmd, shell = True,stdout=PIPE)
 			self.textbuffer.set_text(str(proc.communicate()[0]))
 		else:
@@ -81,7 +81,7 @@ class fileops:
 			self.textview = self.builder.get_object("textview1")
 			self.textbuffer = self.builder.get_object("textbuffer1")
 			sfile = self.file.get_text()
-			cmd = execdir + '/programs/strings ' + sfile
+			cmd = re.escape(execdir) + '/programs/strings ' + re.escape(sfile)
 			proc = Popen(cmd, shell = True,stdout=PIPE)
 			self.textbuffer.set_text(str(proc.communicate()))
 		else:
@@ -100,7 +100,7 @@ class fileops:
 				proc = Popen(cmd, shell = True)
 				time.sleep(3)
 			os.mkdir(outdir)
-			cmd = execdir + '/programs/foremost -c ' + execdir + '/programs/foremost.conf -o ' + outdir + ' -i ' + sfile
+			cmd = re.escape(execdir) + '/programs/foremost -c ' + re.escape(execdir) + '/programs/foremost.conf -o ' + re.escape(outdir) + ' -i ' + re.escape(sfile)
 			proc = Popen(cmd, shell = True)
 		else:
 			self.buffer1.set_text("Please select a file from the file menu!")	
