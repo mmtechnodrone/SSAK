@@ -35,9 +35,8 @@ class jphs:
 			child.expect('Re-enter  :', timeout=2)
 			child.sendline(self.spass)
 			child.expect(pexpect.EOF)
-			self.buffer1.set_text("Output file should be located here: " + self.outfile)
+			self.buffer1.set_text("Output file should be located here: " + self.outfile + "!")
 			self.showdiag()
-			print cmd
 		else:
 			self.buffer1.set_text("You must select a valid input JPEG input file, a valid hide file and a password")
 			self.showdiag()
@@ -60,7 +59,7 @@ class jphs:
 			child.expect('Passphrase:', timeout=2)
 			child.sendline(self.spass)
 			child.expect(pexpect.EOF)
-			self.buffer1.set_text("Output file should be located here: " + self.outfile)
+			self.buffer1.set_text("Output file should be located here: " + self.outfile + "!")
 			self.showdiag()
 		else:
 			self.buffer1.set_text("You must select a valid file, and insert a password")

@@ -102,6 +102,8 @@ class fileops:
 			os.mkdir(outdir)
 			cmd = re.escape(execdir) + '/programs/foremost -c ' + re.escape(execdir) + '/programs/foremost.conf -o ' + re.escape(outdir) + ' -i ' + re.escape(sfile)
 			proc = Popen(cmd, shell = True)
+			self.buffer1.set_text("Output files in " + outdir + "!")	
+			self.showerr()
 		else:
 			self.buffer1.set_text("Please select a file from the file menu!")	
 			self.showerr()
