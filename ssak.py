@@ -5,6 +5,7 @@ from gi.repository import Gtk
 from openstego import openstego
 from jphs import jphs
 from fileops import fileops
+from stegdetect import stegdetect
 
 home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
 execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
@@ -15,7 +16,7 @@ except:
 	os.mkdir(home)
 fileselected = ''
 
-class SSAK(openstego, jphs, fileops):
+class SSAK(openstego, jphs, fileops, stegdetect):
 
 	def __init__(self):
 		gladefile = execdir + "/SSAK.glade"
@@ -70,6 +71,10 @@ class SSAK(openstego, jphs, fileops):
 		self.ostegextract.connect("clicked", self.ostegextract2)
 		checkbutton4 = self.builder.get_object("checkbutton1")
 		checkbutton4.connect("toggled", self.togglepass2)
+
+		# stegdetect
+		self.steg = self.builder.get_object("button11")
+		self.steg.connect("clicked", self.stegdet)
 
 SSAK=SSAK()
 Gtk.main()

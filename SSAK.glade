@@ -3,6 +3,13 @@
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <object class="GtkAction" id="action1"/>
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="lower">1</property>
+    <property name="upper">100</property>
+    <property name="value">1</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkFileFilter" id="filefilter1">
     <patterns>
       <pattern>*.jpeg</pattern>
@@ -180,6 +187,213 @@ Examples:
   </object>
   <object class="GtkTextBuffer" id="textbuffer1"/>
   <object class="GtkTextBuffer" id="textbuffer2"/>
+  <object class="GtkTextBuffer" id="textbuffer3">
+    <property name="text" translatable="yes">You must select a file before performing any operations.
+Please select a file using the file menu!</property>
+  </object>
+  <object class="GtkTextBuffer" id="textbuffer4"/>
+  <object class="GtkTextBuffer" id="textbuffer5">
+    <property name="text" translatable="yes">NAME
+
+     stegdetect - finds image files with steganographic content
+
+SYNOPSIS
+
+     stegdetect [-qhnV] [-s float] [-C num,tfname] [-c file ... name]
+                [-D file] [-d num] [-t tests] [file ...]
+
+DESCRIPTION
+
+     The stegdetect utility analyses image files for steganographic content.
+     It runs statistical tests to determine if steganographic content is
+     present, and also tries to find the system that has been used to embed
+     the hidden information.
+
+     The options are as follows:
+
+     -q        Only reports images that are likely to have steganographic
+               content.
+
+     -h        Only calculates the DCT histogram.  Use the -d option to
+               display the values.
+
+     -n        Enables checking of JPEG header information to surpress false
+               positives.  If enabled, all JPEG images that contain comment
+               fields will be treated as negatives.  OutGuess checking will be
+               disabled if the JFIF marker does not match version 1.1.
+
+     -V        Displays the version number of the software.
+
+     -s float  Changes the sensitivity of the detection algorithms.  Their
+               results are multiplied by the specified number.  The higher the
+               number the more sensitive the test will become.  The default is
+               1.
+
+     -C num,tfname
+               Feature vectors are being extraced from the images.  The
+               argument num can either be zero or one.  A zero indicates that
+               the provided images do not contain steganographic content, a
+               one indicates that they do.  The argument tfname is the name of
+               transform used for feature extraction.  The features vectores
+               are printed to stdout.
+
+     -c file   Reads the data created by the -C options and computes the
+               necessary values to detect steganographic content in yet
+               unknown images.  The option can be used multiple times.  It
+               expects that the name of the scheme provided as additional
+               argument.  The result is a decision object that can be used
+               with the -D option.  The decision object contains a the
+               parameters for a linear discriminant function based on the
+               Neyman-Pearson theorem.
+
+     -D file   Reads a decision object that contains detection information
+               about a new steganographic scheme.
+
+     -d num    Prints debug information.
+
+     -t tests  Sets the tests that are being run on the image.  The following
+               characters are understood:
+
+               j       Tests if information has been embedded with jsteg.
+
+               o       Tests if information has been embedded with outguess.
+
+               p       Tests if information has been embedded with jphide.
+
+               i       Tests if information has been hidden with invisible
+                       secrets.
+
+               f       Tests if information has been hidden with F5.
+
+               F       Tests if information has been hidden with F5 using a
+                       more sophisticated but fairly slow detection algorithm.
+
+               a       Tests if information has been added at the end of file,
+                       for example by camouflage or appendX.
+
+               The default value is jopifa.
+
+     The stegdetect utility indicates the accuracy of the detection with a
+     number of stars behind the detected system.  If no filenames have been
+     specified, stegdetect will read the filenames from stdin.
+
+EXAMPLES
+
+     stegdetect -t p auto.jpg
+
+     Tries to detect the presence of jphide embedded information in auto.jpg.
+
+ERRORS
+
+     stegdetect works only for JPEG images.
+
+     Currently, there is no support for parameter training.  The only exported
+     knob is the sensitivity level.  Future versions will export all detection
+     parameters via a configuration file.
+
+SEE ALSO
+
+     stegbreak(1)
+
+ACKNOWLEDGEMENTS
+
+     This product includes software developed by Ian F. Darwin and others.
+     The stegdetect utility uses Darwin’s file magic to identify data appended
+     at the end of an image.
+
+AUTHORS
+
+     The stegdetect utility has been developed by Niels Provos.
+
+NAME
+
+     stegbreak - launches brute-force dictionary attacks on JPG image
+
+SYNOPSIS
+
+     stegdetect [-qV] [-r rules] [-f wordlist] [-t tests] [-c] [file ...]
+
+DESCRIPTION
+
+     The stegbreak states a brute-force dictionary attack against the
+     specified JPG images.
+
+     The options are as follows:
+
+     -q           Only reports images for which the dictionary attack
+                  succeeded.
+
+     -V           Displays the version number of the software.
+
+     -r rules     Contains rules with transformations that will be applied to
+                  the words in the wordlist.  The rules follow the same syntax
+                  as in Solar Designers password cracking program John the
+                  Ripper.  The default is rules.ini.
+
+     -f wordlist  Specifies the file that contains the words for the
+                  dictionary attack.  The default is /usr/share/dict/words.
+
+     -t tests     Sets the tests that are being run on the image.  The
+                  following characters are understood:
+
+                  o             The dictionary attack follows the embedding
+                                used by outguess.
+
+                  p             The dictionary attack follows the embedding
+                                used by jphide.
+
+                  j             The dictionary attack follows the embedding
+                                used by jsteg-shell.
+
+                  The default value is p.
+
+     -c           Specifies that the JPG images should be converted to a small
+                  sized object that contains all the information necessary for
+                  the dictionary attack.  This can be used to reduce the size
+                  of the data set in distributed computing applications.
+
+     The stegbreak prints the filename, the embedding system and the password
+     when the attack succeeded for an image.  For jsteg-shell and outguess, it
+     also prints analysis results from the built in file utility.
+
+     Pressing Ctrl-C causes a status line to be displayed, pressing Ctrl-C a
+     second time within one second aborts the program.
+
+EXAMPLES
+
+     stegbreak -t p auto.jpg
+
+     Launches a brute-force dictionary attack against auto.jpg assuming that
+     information has been embedded with jphide.
+
+FILES
+
+     /usr/share/dict/words                 default wordfile for the dictionary
+                                           attack.
+     /usr/local/share/stegbreak/rules.ini  rules on how to manipulate words
+                                           for the dictionary attack, from
+                                           John the Ripper.
+
+SEE ALSO
+
+     stegdetect(1)
+
+ACKNOWLEDGEMENTS
+
+     This program contains source code from Solar Designer’s John the Ripper.
+     It has been placed under a BSD-license with his permission.
+
+     This product includes software developed by Ian F. Darwin and others.
+     The stegbreak utility uses Darwin’s file magic to verify results from
+     OutGuess key guessing.
+
+     Korejwa provided information on the data format used by JSteg Shell.
+
+AUTHORS
+
+     The stegbreak utility has been developed by Niels Provos.
+</property>
+  </object>
   <object class="GtkWindow" id="window1">
     <property name="can_focus">False</property>
     <child>
@@ -359,12 +573,566 @@ Examples:
                       <object class="GtkBox" id="box8">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="margin_right">5</property>
                         <property name="orientation">vertical</property>
+                        <property name="homogeneous">True</property>
                         <child>
-                          <placeholder/>
+                          <object class="GtkBox" id="box36">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="homogeneous">True</property>
+                            <child>
+                              <object class="GtkBox" id="box37">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_bottom">5</property>
+                                <property name="orientation">vertical</property>
+                                <property name="homogeneous">True</property>
+                                <child>
+                                  <object class="GtkBox" id="box39">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="homogeneous">True</property>
+                                    <child>
+                                      <object class="GtkLabel" id="label28">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Stegdetect</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="box53">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="homogeneous">True</property>
+                                        <child>
+                                          <object class="GtkCheckButton" id="checkbutton5">
+                                            <property name="label" translatable="yes">JSteg Shell</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="active">True</property>
+                                            <property name="draw_indicator">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkCheckButton" id="checkbutton6">
+                                            <property name="label" translatable="yes">Outguess</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="active">True</property>
+                                            <property name="draw_indicator">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkCheckButton" id="checkbutton7">
+                                            <property name="label" translatable="yes">JPHide</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="active">True</property>
+                                            <property name="draw_indicator">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">2</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="box43">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="homogeneous">True</property>
+                                    <child>
+                                      <object class="GtkBox" id="box49">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="homogeneous">True</property>
+                                        <child>
+                                          <object class="GtkCheckButton" id="checkbutton8">
+                                            <property name="label" translatable="yes">Invisible</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="active">True</property>
+                                            <property name="draw_indicator">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkCheckButton" id="checkbutton9">
+                                            <property name="label" translatable="yes">F5</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="active">True</property>
+                                            <property name="draw_indicator">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkCheckButton" id="checkbutton10">
+                                            <property name="label" translatable="yes">Camouflage
+/Appendix</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="active">True</property>
+                                            <property name="draw_indicator">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">2</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="box44">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="homogeneous">True</property>
+                                        <child>
+                                          <object class="GtkLabel" id="label31">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="xalign">0.05000000074505806</property>
+                                            <property name="label" translatable="yes">Sensitivity</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkSpinButton" id="spinbutton1">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="max_length">2</property>
+                                            <property name="width_chars">2</property>
+                                            <property name="max_width_chars">2</property>
+                                            <property name="adjustment">adjustment1</property>
+                                            <property name="numeric">True</property>
+                                            <property name="value">1</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="box45">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="homogeneous">True</property>
+                                    <child>
+                                      <object class="GtkBox" id="box52">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="homogeneous">True</property>
+                                        <child>
+                                          <object class="GtkCheckButton" id="checkbutton4">
+                                            <property name="label" translatable="yes">Check Directory</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="draw_indicator">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkFileChooserButton" id="filechooserbutton3">
+                                            <property name="can_focus">False</property>
+                                            <property name="action">select-folder</property>
+                                            <property name="create_folders">False</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="box46">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="homogeneous">True</property>
+                                        <child>
+                                          <object class="GtkFixed" id="fixed12">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkButton" id="button11">
+                                            <property name="label" translatable="yes">Detect It!</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">2</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox" id="box38">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_right">5</property>
+                                <property name="margin_bottom">5</property>
+                                <property name="orientation">vertical</property>
+                                <property name="homogeneous">True</property>
+                                <child>
+                                  <object class="GtkBox" id="box40">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="homogeneous">True</property>
+                                    <child>
+                                      <object class="GtkLabel" id="label29">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">Stegbreak</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="label32">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="xalign">0.0099999997764825821</property>
+                                        <property name="label" translatable="yes">Steg Type:</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="box47">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="homogeneous">True</property>
+                                    <child>
+                                      <object class="GtkBox" id="box50">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="homogeneous">True</property>
+                                        <child>
+                                          <object class="GtkCheckButton" id="checkbutton11">
+                                            <property name="label" translatable="yes">Outguess</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="active">True</property>
+                                            <property name="draw_indicator">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkCheckButton" id="checkbutton12">
+                                            <property name="label" translatable="yes">JPHide</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="active">True</property>
+                                            <property name="draw_indicator">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkCheckButton" id="checkbutton13">
+                                            <property name="label" translatable="yes">JSteg Shell</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="active">True</property>
+                                            <property name="draw_indicator">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">2</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="box48">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="homogeneous">True</property>
+                                        <child>
+                                          <object class="GtkLabel" id="label30">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="xalign">0.05000000074505806</property>
+                                            <property name="label" translatable="yes">Select Dictionary:</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkFileChooserButton" id="filechooserbutton4">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="box41">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="homogeneous">True</property>
+                                    <child>
+                                      <object class="GtkFixed" id="fixed9">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="box42">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="orientation">vertical</property>
+                                        <property name="homogeneous">True</property>
+                                        <child>
+                                          <object class="GtkFixed" id="fixed8">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkButton" id="button10">
+                                            <property name="label" translatable="yes">Break It!</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">2</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
                         </child>
                         <child>
-                          <placeholder/>
+                          <object class="GtkScrolledWindow" id="scrolledwindow5">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="margin_right">5</property>
+                            <property name="margin_bottom">10</property>
+                            <property name="shadow_type">in</property>
+                            <child>
+                              <object class="GtkTextView" id="textview6">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="buffer">textbuffer5</property>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
                         </child>
                       </object>
                     </child>
@@ -1513,7 +2281,7 @@ Examples:
               <object class="GtkBox" id="box14">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="margin_right">10</property>
+                <property name="margin_right">5</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkEntry" id="entry1">
@@ -1557,10 +2325,6 @@ Examples:
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkTextBuffer" id="textbuffer3">
-    <property name="text" translatable="yes">You must select a file before performing any operations.
-Please select a file using the file menu!</property>
   </object>
   <object class="GtkDialog" id="dialog1">
     <property name="can_focus">False</property>
@@ -1613,5 +2377,4 @@ Please select a file using the file menu!</property>
       </object>
     </child>
   </object>
-  <object class="GtkTextBuffer" id="textbuffer4"/>
 </interface>
