@@ -76,5 +76,9 @@ class SSAK(openstego, jphs, fileops, stegdetect):
 		self.steg = self.builder.get_object("button11")
 		self.steg.connect("clicked", self.stegdet)
 
+		#stegbreak
+		self.stegc = self.builder.get_object("button10")
+		self.stegc.connect("clicked", self.stegcrack)
+
 SSAK=SSAK()
 Gtk.main()
