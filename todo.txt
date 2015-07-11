@@ -1,0 +1,6 @@
+Add GUI sections for Steghide, Outguess, f5, Jsteg and StegExplore.
+Add documentation entry.
+Customize look with CSS.
+Implelement settings which can control parts of the program.
+Implement text search and possibly dictionary search on strings output.
+Possibly include menu item to open in hex editor
