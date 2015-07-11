@@ -111,7 +111,7 @@ class stegdetect:
 
 		if self.sfile != '' and dictionary != None:
 			self.buffer1.set_text("Please Wait \n")
-			cmd = re.escape(execdir) + "/programs/stegbreak " + tests + " -r " + re.escape(execdir) + "/programs/rules.ini -f " + re.escape(dictionary) + " " + self.sfile
+			cmd = re.escape(execdir) + "/programs/stegbreak " + tests + " -r " + re.escape(execdir) + "/programs/noarch/rules.ini -f " + re.escape(dictionary) + " " + self.sfile
 			print cmd
 			self.showprogress()
 			p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)

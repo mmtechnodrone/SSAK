@@ -45,7 +45,7 @@ class fileops:
 		if sfile != '':
 			if "JPEG" in filetype:
 				self.textview2 = self.builder.get_object("textview2")
-				cmd = 'java -cp ' + re.escape(execdir) + '/programs/metadata-extractor2-2.jar:' + re.escape(execdir) + '/programs/xmpcore.jar com.drew.imaging.ImageMetadataReader ' + re.escape(sfile)			
+				cmd = 'java -cp ' + re.escape(execdir) + '/programs/noarch/metadata-extractor2-2.jar:' + re.escape(execdir) + '/programs/noarch/xmpcore.jar com.drew.imaging.ImageMetadataReader ' + re.escape(sfile)			
 				proc = Popen(cmd, shell = True,stdout=PIPE)
 				self.textbuffer.set_text(str(proc.communicate()[0]))
 			else:
@@ -101,7 +101,7 @@ class fileops:
 				proc = Popen(cmd, shell = True)
 				time.sleep(3)
 			os.mkdir(outdir)
-			cmd = re.escape(execdir) + '/programs/foremost -c ' + re.escape(execdir) + '/programs/foremost.conf -o ' + re.escape(outdir) + ' -i ' + re.escape(sfile)
+			cmd = re.escape(execdir) + '/programs/foremost -c ' + re.escape(execdir) + '/programs/noarch/foremost.conf -o ' + re.escape(outdir) + ' -i ' + re.escape(sfile)
 			proc = Popen(cmd, shell = True)
 			self.buffer1.set_text("Output files in " + outdir + "!")	
 			self.showerr()

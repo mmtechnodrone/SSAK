@@ -4,7 +4,7 @@ from subprocess import Popen, PIPE
 
 home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
 execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
-stegprog = 'java -jar ' + re.escape(execdir) + '/programs/openstego.jar '
+stegprog = 'java -jar ' + re.escape(execdir) + '/programs/noarch/openstego.jar '
 
 class openstego:
 
