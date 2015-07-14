@@ -6,6 +6,7 @@ from openstego import openstego
 from jphs import jphs
 from fileops import fileops
 from stegdetect import stegdetect
+from steghide import steghide
 
 home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
 execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
@@ -16,7 +17,15 @@ except:
 	os.mkdir(home)
 fileselected = ''
 
-class SSAK(openstego, jphs, fileops, stegdetect):
+class SSAK(openstego, jphs, fileops, stegdetect, steghide):
+
+	def showdiag(self):
+		def hidedialog(widget):
+			self.nofiledialog.hide()
+		self.nofiledialog = self.builder.get_object("dialog1")
+		self.nofiledialogbutton = self.builder.get_object("button5")
+		self.nofiledialogbutton.connect("clicked",hidedialog)
+		self.nofiledialog.show()
 
 	def __init__(self):
 		gladefile = execdir + "/SSAK.glade"
@@ -79,6 +88,10 @@ class SSAK(openstego, jphs, fileops, stegdetect):
 		#stegbreak
 		self.stegc = self.builder.get_object("button10")
 		self.stegc.connect("clicked", self.stegcrack)
+
+		#steghide
+		self.stegh = self.builder.get_object("button13")
+		self.stegh.connect("clicked", self.stegembed)
 
 SSAK=SSAK()
 Gtk.main()

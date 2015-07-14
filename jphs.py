@@ -5,14 +5,6 @@ execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
 
 class jphs:
 
-	def showdiag(self):
-		def hidedialog(widget):
-			self.nofiledialog.hide()
-		self.nofiledialog = self.builder.get_object("dialog1")
-		self.nofiledialogbutton = self.builder.get_object("button5")
-		self.nofiledialogbutton.connect("clicked",hidedialog)
-		self.nofiledialog.show()
-
 	def jphideit2(self, widget):
 		self.file = self.builder.get_object("entry1")
 		self.sfile = self.file.get_text()

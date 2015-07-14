@@ -7,14 +7,6 @@ execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
 
 class stegdetect:
 
-	def showdiag(self):
-		def hidedialog(widget):
-			self.nofiledialog.hide()
-		self.nofiledialog = self.builder.get_object("dialog1")
-		self.nofiledialogbutton = self.builder.get_object("button5")
-		self.nofiledialogbutton.connect("clicked",hidedialog)
-		self.nofiledialog.show()
-
 	def showprogress(self):
 		def hideprogress(widget):
 			os.system("kill " + str(self.pid))

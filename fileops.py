@@ -7,14 +7,6 @@ execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
 
 class fileops:
 
-	def showerr(self):
-		def hidedialog(widget):
-			self.nofiledialog.hide()
-		self.nofiledialog = self.builder.get_object("dialog1")
-		self.nofiledialogbutton = self.builder.get_object("button5")
-		self.nofiledialogbutton.connect("clicked",hidedialog)
-		self.nofiledialog.show()
-
 	def fileselect(self, widget):
 		self.file = self.builder.get_object("entry1")
 		chooser = Gtk.FileChooserDialog("Select file to Analyze", None, Gtk.FileChooserAction.SAVE, (Gtk.STOCK_CANCEL,Gtk.ResponseType.CANCEL,Gtk.STOCK_SAVE,Gtk.ResponseType.OK))
@@ -52,7 +44,7 @@ class fileops:
 				self.textbuffer.set_text("File must be jpeg/jpg!!!")	
 		else:	
 			self.buffer1.set_text("Please select a file from the file menu!")	
-			self.showerr()
+			self.showdiag()
 						
 	def strings(self, widget):
 		self.file = self.builder.get_object("entry1")
@@ -69,7 +61,7 @@ class fileops:
 			self.textbuffer.set_text(str(proc.communicate()[0]))
 		else:
 			self.buffer1.set_text("Please select a file from the file menu!")	
-			self.showerr()
+			self.showdiag()
 
 	def strings2(self, widget):
 		self.file = self.builder.get_object("entry1")
@@ -87,7 +79,7 @@ class fileops:
 			self.textbuffer.set_text(str(proc.communicate()))
 		else:
 			self.buffer1.set_text("Please select a file from the file menu!")	
-			self.showerr()
+			self.showdiag()
 
 	def carveit2(self, widget):
 		self.file = self.builder.get_object("entry1")
@@ -101,11 +93,11 @@ class fileops:
 				proc = Popen(cmd, shell = True)
 				time.sleep(3)
 			os.mkdir(outdir)
-			cmd = re.escape(execdir) + '/programs/foremost -c ' + re.escape(execdir) + '/programs/noarch/foremost.conf -o ' + re.escape(outdir) + ' -i ' + re.escape(sfile)
+			cmd = re.escape(execdir) + '/programs/foremost -c ' + re.escape(execdir) + '/programs/foremost.conf -o ' + re.escape(outdir) + ' -i ' + re.escape(sfile)
 			proc = Popen(cmd, shell = True)
 			self.buffer1.set_text("Output files in " + outdir + "!")	
-			self.showerr()
+			self.showdiag()
 		else:
 			self.buffer1.set_text("Please select a file from the file menu!")	
-			self.showerr()
+			self.showdiag()
 

@@ -26,14 +26,6 @@ class openstego:
 		if value == "ON":
 			self.pass4.set_property("editable", True)
 
-	def showdiag(self):
-		def hidedialog(widget):
-			self.nofiledialog.hide()
-		self.nofiledialog = self.builder.get_object("dialog1")
-		self.nofiledialogbutton = self.builder.get_object("button5")
-		self.nofiledialogbutton.connect("clicked",hidedialog)
-		self.nofiledialog.show()
-
 	def ostegembed2(self, widget):
 		checkbutton3 = self.builder.get_object("checkbutton3")
 		value = ("OFF", "ON")[checkbutton3.get_active()]

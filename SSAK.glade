@@ -394,6 +394,121 @@ AUTHORS
      The stegbreak utility has been developed by Niels Provos.
 </property>
   </object>
+  <object class="GtkTextBuffer" id="textbuffer6"/>
+  <object class="GtkDialog" id="dialog2">
+    <property name="can_focus">False</property>
+    <property name="type_hint">dialog</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="dialog-vbox2">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="dialog-action_area2">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="button12">
+                <property name="label" translatable="yes">Cancel/Close</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow6">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <property name="min_content_width">600</property>
+            <property name="min_content_height">200</property>
+            <child>
+              <object class="GtkTextView" id="textview7">
+                <property name="width_request">400</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="editable">False</property>
+                <property name="wrap_mode">word</property>
+                <property name="cursor_visible">False</property>
+                <property name="buffer">textbuffer6</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkTextBuffer" id="textbuffer7">
+    <property name="text" translatable="yes">steghide version 0.5.1
+
+the first argument must be one of the following:
+ embed, --embed          embed data
+ extract, --extract      extract data
+ info, --info            display information about a cover- or stego-file
+   info &lt;filename&gt;       display information about &lt;filename&gt;
+ encinfo, --encinfo      display a list of supported encryption algorithms
+ version, --version      display version information
+ license, --license      display steghide's license
+ help, --help            display this usage information
+
+embedding options:
+ -ef, --embedfile        select file to be embedded
+   -ef &lt;filename&gt;        embed the file &lt;filename&gt;
+ -cf, --coverfile        select cover-file
+   -cf &lt;filename&gt;        embed into the file &lt;filename&gt;
+ -p, --passphrase        specify passphrase
+   -p &lt;passphrase&gt;       use &lt;passphrase&gt; to embed data
+ -sf, --stegofile        select stego file
+   -sf &lt;filename&gt;        write result to &lt;filename&gt; instead of cover-file
+ -e, --encryption        select encryption parameters
+   -e &lt;a&gt;[&lt;m&gt;]|&lt;m&gt;[&lt;a&gt;]  specify an encryption algorithm and/or mode
+   -e none               do not encrypt data before embedding
+ -z, --compress          compress data before embedding (default)
+   -z &lt;l&gt;                 using level &lt;l&gt; (1 best speed...9 best compression)
+ -Z, --dontcompress      do not compress data before embedding
+ -K, --nochecksum        do not embed crc32 checksum of embedded data
+ -N, --dontembedname     do not embed the name of the original file
+ -f, --force             overwrite existing files
+ -q, --quiet             suppress information messages
+ -v, --verbose           display detailed information
+
+extracting options:
+ -sf, --stegofile        select stego file
+   -sf &lt;filename&gt;        extract data from &lt;filename&gt;
+ -p, --passphrase        specify passphrase
+   -p &lt;passphrase&gt;       use &lt;passphrase&gt; to extract data
+ -pf, --passfile         specify passwords list file
+   -pf &lt;passfile&gt;        use &lt;passfile&gt; to extract using passwords list file
+ -xf, --extractfile      select file name for extracted data
+   -xf &lt;filename&gt;        write the extracted data to &lt;filename&gt;
+ -f, --force             overwrite existing files
+ -q, --quiet             suppress information messages
+ -v, --verbose           display detailed information
+
+options for the info command:
+ -p, --passphrase        specify passphrase
+   -p &lt;passphrase&gt;       use &lt;passphrase&gt; to get info about embedded data
+
+To embed emb.txt in cvr.jpg: steghide embed -cf cvr.jpg -ef emb.txt
+To extract embedded data from stg.jpg: steghide extract -sf stg.jpg</property>
+  </object>
   <object class="GtkWindow" id="window1">
     <property name="can_focus">False</property>
     <child>
@@ -598,7 +713,7 @@ AUTHORS
                                       <object class="GtkLabel" id="label28">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Stegdetect</property>
+                                        <property name="label" translatable="yes">STEGDETECT</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -902,7 +1017,7 @@ AUTHORS
                                       <object class="GtkLabel" id="label29">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Stegbreak</property>
+                                        <property name="label" translatable="yes">STEGBREAK</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -1158,6 +1273,422 @@ AUTHORS
               </object>
               <packing>
                 <property name="position">1</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFrame" id="frame7">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <child>
+                  <object class="GtkAlignment" id="alignment7">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="left_padding">12</property>
+                    <child>
+                      <object class="GtkBox" id="box51">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="margin_right">2</property>
+                        <property name="orientation">vertical</property>
+                        <property name="homogeneous">True</property>
+                        <child>
+                          <object class="GtkBox" id="box54">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="homogeneous">True</property>
+                            <child>
+                              <object class="GtkBox" id="box55">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="orientation">vertical</property>
+                                <property name="homogeneous">True</property>
+                                <child>
+                                  <object class="GtkBox" id="box57">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="homogeneous">True</property>
+                                    <child>
+                                      <object class="GtkLabel" id="label35">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">EMBED</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="box60">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="homogeneous">True</property>
+                                        <child>
+                                          <object class="GtkCheckButton" id="checkbutton14">
+                                            <property name="label" translatable="yes">Compress
+Message</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="active">True</property>
+                                            <property name="draw_indicator">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkCheckButton" id="checkbutton15">
+                                            <property name="label" translatable="yes">Embed 
+Checksum</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="active">True</property>
+                                            <property name="draw_indicator">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkCheckButton" id="checkbutton16">
+                                            <property name="label" translatable="yes">Embed 
+Name</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="active">True</property>
+                                            <property name="draw_indicator">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">2</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="box59">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="homogeneous">True</property>
+                                    <child>
+                                      <object class="GtkBox" id="box61">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="homogeneous">True</property>
+                                        <child>
+                                          <object class="GtkLabel" id="label38">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="xalign">0.05000000074505806</property>
+                                            <property name="label" translatable="yes">Message File:</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">2</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkFileChooserButton" id="filechooserbutton5">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">3</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="box64">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="homogeneous">True</property>
+                                        <child>
+                                          <object class="GtkLabel" id="label37">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="xalign">0.05000000074505806</property>
+                                            <property name="label" translatable="yes">Encryption Type:</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkComboBoxText" id="comboboxtext3">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="active">0</property>
+                                            <items>
+                                              <item translatable="yes">none</item>
+                                              <item translatable="yes">cast-128</item>
+                                              <item translatable="yes">gost</item>
+                                              <item translatable="yes">rijndael-128</item>
+                                              <item translatable="yes">twofish</item>
+                                              <item translatable="yes">arcfour</item>
+                                              <item translatable="yes">cast-256</item>
+                                              <item translatable="yes">loki97</item>
+                                              <item translatable="yes">rijndael-192</item>
+                                              <item translatable="yes">saferplus</item>
+                                              <item translatable="yes">wake</item>
+                                              <item translatable="yes">des</item>
+                                              <item translatable="yes">rijndael-256</item>
+                                              <item translatable="yes">serpent</item>
+                                              <item translatable="yes">xtea</item>
+                                              <item translatable="yes">blowfish</item>
+                                              <item translatable="yes">enigma</item>
+                                              <item translatable="yes">rc2</item>
+                                              <item translatable="yes">tripledes</item>
+                                            </items>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="box63">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="homogeneous">True</property>
+                                    <child>
+                                      <object class="GtkBox" id="box62">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="homogeneous">True</property>
+                                        <child>
+                                          <object class="GtkLabel" id="label39">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="xalign">0.05000000074505806</property>
+                                            <property name="label" translatable="yes">Passphrase:</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkEntry" id="entry8">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="box65">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="homogeneous">True</property>
+                                        <child>
+                                          <object class="GtkFixed" id="fixed6">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkButton" id="button13">
+                                            <property name="label" translatable="yes">Embed It!</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">True</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">2</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox" id="box56">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="orientation">vertical</property>
+                                <property name="homogeneous">True</property>
+                                <child>
+                                  <object class="GtkBox" id="box58">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="homogeneous">True</property>
+                                    <child>
+                                      <object class="GtkLabel" id="label36">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">EXTRACT/GET INFO</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <placeholder/>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkScrolledWindow" id="scrolledwindow7">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="shadow_type">in</property>
+                            <child>
+                              <object class="GtkTextView" id="textview8">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="buffer">textbuffer7</property>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child type="label">
+                  <object class="GtkLabel" id="label34">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Steghide supports JPEG, BMP, WAV and AU cover files!!!</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child type="tab">
+              <object class="GtkLabel" id="label33">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Steghide</property>
+              </object>
+              <packing>
+                <property name="position">2</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -1460,7 +1991,7 @@ AUTHORS
                 </child>
               </object>
               <packing>
-                <property name="position">2</property>
+                <property name="position">3</property>
               </packing>
             </child>
             <child type="tab">
@@ -1470,7 +2001,7 @@ AUTHORS
                 <property name="label" translatable="yes">JPHS</property>
               </object>
               <packing>
-                <property name="position">2</property>
+                <property name="position">3</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -1993,7 +2524,7 @@ AUTHORS
                 </child>
               </object>
               <packing>
-                <property name="position">3</property>
+                <property name="position">4</property>
               </packing>
             </child>
             <child type="tab">
@@ -2003,7 +2534,7 @@ AUTHORS
                 <property name="label" translatable="yes">OpenStego</property>
               </object>
               <packing>
-                <property name="position">3</property>
+                <property name="position">4</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -2072,7 +2603,7 @@ AUTHORS
                 </child>
               </object>
               <packing>
-                <property name="position">4</property>
+                <property name="position">5</property>
               </packing>
             </child>
             <child type="tab">
@@ -2082,7 +2613,7 @@ AUTHORS
                 <property name="label" translatable="yes">Exif</property>
               </object>
               <packing>
-                <property name="position">4</property>
+                <property name="position">5</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -2216,7 +2747,7 @@ AUTHORS
                 </child>
               </object>
               <packing>
-                <property name="position">5</property>
+                <property name="position">6</property>
               </packing>
             </child>
             <child type="tab">
@@ -2226,7 +2757,7 @@ AUTHORS
                 <property name="label" translatable="yes">Strings</property>
               </object>
               <packing>
-                <property name="position">5</property>
+                <property name="position">6</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -2370,67 +2901,6 @@ AUTHORS
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkTextBuffer" id="textbuffer6"/>
-  <object class="GtkDialog" id="dialog2">
-    <property name="can_focus">False</property>
-    <property name="type_hint">dialog</property>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox2">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area2">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="button12">
-                <property name="label" translatable="yes">Cancel/Close</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkScrolledWindow" id="scrolledwindow6">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="shadow_type">in</property>
-            <property name="min_content_width">600</property>
-            <property name="min_content_height">200</property>
-            <child>
-              <object class="GtkTextView" id="textview7">
-                <property name="width_request">400</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="editable">False</property>
-                <property name="wrap_mode">word</property>
-                <property name="cursor_visible">False</property>
-                <property name="buffer">textbuffer6</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
