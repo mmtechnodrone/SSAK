@@ -59,15 +59,18 @@ class stegdetect:
 			elif wholedir == "OFF":
 				cmd = re.escape(execdir) + "/programs/stegdetect " + tests + " -s " + str(size) + " " + re.escape(self.sfile)
 				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
-				line = str(proc.communicate()[0])
+				stdout, stderr = proc.communicate()
+				line = stdout + stderr
 				self.buffer1.set_text(line)
 				self.showdiag()
 			elif wholedir == "ON":
 				cdir = urlparse.urlparse(directory).path
 				cmd = re.escape(execdir) + "/programs/stegdetect " + tests + " -s " + str(size) + " " + re.escape(cdir) + "/*.jpg " + re.escape(cdir) + "/*.jpeg"
-				proc = Popen(cmd, shell = True, stdout=PIPE)
+				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
 				line = ''
 				for append in proc.stdout:
+					line += append
+				for append in proc.stderr:
 					line += append
 				if line == "":
 					self.buffer1.set_text("No jpg or jpeg images in that directory")
