@@ -31,25 +31,24 @@ class steghide:
 		if nameit == "OFF":
 			options += " -N "
 		encryption = ""
-		if self.steghidefile != "None" and self.sfile != "" and self.hpass != "":
+		if self.steghidefile != "None" and self.sfile != "":
 			if self.enc == "none":
-				encryption = " -e none -p " + self.hpass + " "
+				encryption = " -e none"
 			else:
 				if self.enc == "wake" or self.enc == "arcfour" or self.enc == "enigma":
-					encryption = " -e " + self.enc + " stream -p " + self.hpass + " "
+					encryption = " -e " + self.enc + " stream "
 				else:
-					encryption = " -e " + self.enc + " cbc -p " + self.hpass + " "
+					encryption = " -e " + self.enc + " cbc "
 			head, tail = os.path.split(self.sfile)
 			outdir = home + tail + '/steghide'
 			self.outfile2 = outdir + '/' + tail
 			if not os.path.isdir(outdir):
 				os.mkdir(outdir)
-			cmd = re.escape(execdir) + "/programs/steghide --embed -ef " + self.steghidefile + options + encryption + " -cf " + self.sfile + " -sf " + self.outfile2
-			print cmd
+			cmd = re.escape(execdir) + "/programs/steghide --embed -ef " + self.steghidefile + options + encryption + " -cf " + self.sfile + " -sf " + self.outfile2 + " -p '" + self.hpass + "'"
 			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
 			line = str(proc.communicate()[1])
 			self.buffer1.set_text(line)
 			self.showdiag()
 		else:
-			self.buffer1.set_text("You must select a cover file from the file menu, a message file and a passphrase!")
+			self.buffer1.set_text("You must select a cover file from the file menu and a message file")
 			self.showdiag()
