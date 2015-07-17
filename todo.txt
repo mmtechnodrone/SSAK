@@ -6,4 +6,4 @@ Implement text search and possibly dictionary search on strings output.
 Possibly include menu item to open in hex editor
 Display detailed notification when cover file is to small to embed hidden messages in JPHS
 Implement method to select encryption method (encryption methods differ by algorithm, algorithm selection already implemented)
-Put 32 and 64 bit executables in subdirs of program folder, dynamically select appropriate architecture
+

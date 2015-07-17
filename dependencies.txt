@@ -1,4 +1,4 @@
 python pexpect - for jphs
 libmhash - for steghide
 libmcrypt - for steghide
-zlib
+zlib - for steghide
