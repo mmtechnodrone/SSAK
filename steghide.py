@@ -1,9 +1,11 @@
-import os, pwd, sys, re, urlparse, time, fcntl
+import os, pwd, sys, re, urlparse, time, fcntl, struct
 from gi.repository import Gtk, GObject
 from subprocess import Popen, PIPE
 
 home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
 execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+arch = str(8 * struct.calcsize("P"))
 
 class steghide:
 	
@@ -44,7 +46,7 @@ class steghide:
 			self.outfile2 = outdir + '/' + tail
 			if not os.path.isdir(outdir):
 				os.mkdir(outdir)
-			cmd = re.escape(execdir) + "/programs/steghide --embed -ef " + self.steghidefile + options + encryption + " -cf " + self.sfile + " -sf " + self.outfile2 + " -p '" + self.hpass + "'"
+			cmd = re.escape(execdir) + "/programs/" + arch + "/steghide --embed -ef " + self.steghidefile + options + encryption + " -cf " + re.escape(self.sfile) + " -sf " + re.escape(self.outfile2) + " -p '" + self.hpass + "'"
 			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
 			line = str(proc.communicate()[1])
 			self.buffer1.set_text(line)

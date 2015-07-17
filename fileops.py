@@ -1,9 +1,11 @@
-import os, pwd, sys, gi, time, re
+import os, pwd, sys, gi, time, re, struct
 from subprocess import Popen, PIPE
 from gi.repository import Gtk
 
 home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
 execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+arch = str(8 * struct.calcsize("P"))
 
 class fileops:
 
@@ -56,7 +58,7 @@ class fileops:
 			self.textview = self.builder.get_object("textview1")
 			self.textbuffer = self.builder.get_object("textbuffer1")
 			sfile = self.file.get_text()
-			cmd = re.escape(execdir) + '/programs/strings ' + re.escape(sfile)
+			cmd = re.escape(execdir) + '/programs/' + arch + '/strings ' + re.escape(sfile)
 			proc = Popen(cmd, shell = True,stdout=PIPE)
 			self.textbuffer.set_text(str(proc.communicate()[0]))
 		else:
@@ -74,7 +76,7 @@ class fileops:
 			self.textview = self.builder.get_object("textview1")
 			self.textbuffer = self.builder.get_object("textbuffer1")
 			sfile = self.file.get_text()
-			cmd = re.escape(execdir) + '/programs/strings ' + re.escape(sfile)
+			cmd = re.escape(execdir) + '/programs/' + arch + '/strings ' + re.escape(sfile)
 			proc = Popen(cmd, shell = True,stdout=PIPE)
 			self.textbuffer.set_text(str(proc.communicate()))
 		else:
@@ -93,7 +95,7 @@ class fileops:
 				proc = Popen(cmd, shell = True)
 				time.sleep(3)
 			os.mkdir(outdir)
-			cmd = re.escape(execdir) + '/programs/foremost -c ' + re.escape(execdir) + '/programs/foremost.conf -o ' + re.escape(outdir) + ' -i ' + re.escape(sfile)
+			cmd = re.escape(execdir) + '/programs/' + arch + '/foremost -c ' + re.escape(execdir) + '/programs/noarch/foremost.conf -o ' + re.escape(outdir) + ' -i ' + re.escape(sfile)
 			proc = Popen(cmd, shell = True)
 			self.buffer1.set_text("Output files in " + outdir + "!")	
 			self.showdiag()

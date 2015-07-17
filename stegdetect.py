@@ -1,9 +1,11 @@
-import os, pwd, sys, re, urlparse, time, fcntl
+import os, pwd, sys, re, urlparse, time, fcntl, struct
 from gi.repository import Gtk, GObject
 from subprocess import Popen, PIPE
 
 home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
 execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+arch = str(8 * struct.calcsize("P"))
 
 class stegdetect:
 
@@ -57,7 +59,7 @@ class stegdetect:
 				self.buffer1.set_text("You need to select a directory")
 				self.showdiag()
 			elif wholedir == "OFF":
-				cmd = re.escape(execdir) + "/programs/stegdetect " + tests + " -s " + str(size) + " " + re.escape(self.sfile)
+				cmd = re.escape(execdir) + "/programs/" + arch + "/stegdetect " + tests + " -s " + str(size) + " " + re.escape(self.sfile)
 				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
 				stdout, stderr = proc.communicate()
 				line = stdout + stderr
@@ -65,7 +67,7 @@ class stegdetect:
 				self.showdiag()
 			elif wholedir == "ON":
 				cdir = urlparse.urlparse(directory).path
-				cmd = re.escape(execdir) + "/programs/stegdetect " + tests + " -s " + str(size) + " " + re.escape(cdir) + "/*.jpg " + re.escape(cdir) + "/*.jpeg"
+				cmd = re.escape(execdir) + "/programs/" + arch + "/stegdetect " + tests + " -s " + str(size) + " " + re.escape(cdir) + "/*.jpg " + re.escape(cdir) + "/*.jpeg"
 				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
 				line = ''
 				for append in proc.stdout:
@@ -106,7 +108,7 @@ class stegdetect:
 
 		if self.sfile != '' and dictionary != None:
 			self.buffer1.set_text("Please Wait \n")
-			cmd = re.escape(execdir) + "/programs/stegbreak " + tests + " -r " + re.escape(execdir) + "/programs/noarch/rules.ini -f " + re.escape(dictionary) + " " + self.sfile
+			cmd = re.escape(execdir) + "/programs/" + arch + "/stegbreak " + tests + " -r " + re.escape(execdir) + "/programs/noarch/rules.ini -f " + re.escape(dictionary) + " " + self.sfile
 			print cmd
 			self.showprogress()
 			p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
