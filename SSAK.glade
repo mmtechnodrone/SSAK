@@ -191,7 +191,6 @@ Examples:
     <property name="can_focus">True</property>
     <property name="receives_default">False</property>
     <property name="xalign">0</property>
-    <property name="active">True</property>
     <property name="draw_indicator">True</property>
   </object>
   <object class="GtkTextBuffer" id="textbuffer1"/>
@@ -1469,7 +1468,7 @@ Name</property>
                                             <property name="can_focus">False</property>
                                             <property name="active">0</property>
                                             <items>
-                                              <item translatable="yes">none</item>
+                                              <item id="0" translatable="yes">none</item>
                                               <item translatable="yes">cast-128</item>
                                               <item translatable="yes">gost</item>
                                               <item translatable="yes">rijndael-128</item>
@@ -1638,7 +1637,6 @@ Name</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
                                             <property name="xalign">0</property>
-                                            <property name="active">True</property>
                                             <property name="draw_indicator">True</property>
                                             <property name="group">radiobutton4</property>
                                           </object>
@@ -1672,7 +1670,6 @@ Name</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">False</property>
                                             <property name="xalign">0</property>
-                                            <property name="active">True</property>
                                             <property name="draw_indicator">True</property>
                                             <property name="group">radiobutton4</property>
                                           </object>
@@ -3113,6 +3110,89 @@ Name</property>
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="window2">
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkBox" id="box72">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="homogeneous">True</property>
+        <child>
+          <object class="GtkLabel" id="label42">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label" translatable="yes">Job In Progess... Please Wait</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkProgressBar" id="progressbar1">
+            <property name="width_request">600</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="fraction">0.10000000000000001</property>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box73">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="homogeneous">True</property>
+            <child>
+              <object class="GtkFixed" id="fixed10">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="button15">
+                <property name="label" translatable="yes">Quit</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFixed" id="fixed11">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>

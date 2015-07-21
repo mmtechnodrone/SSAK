@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys, pygtk, gi, os, re, pwd
+import sys, pygtk, gi, os, re, pwd, struct
 from gi.repository import Gtk
 from openstego import openstego
 from jphs import jphs
@@ -15,7 +15,6 @@ try:
 	os.stat(home)
 except:
 	os.mkdir(home)
-fileselected = ''
 
 class SSAK(openstego, jphs, fileops, stegdetect, steghide):
 
@@ -92,6 +91,20 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide):
 		#steghide
 		self.stegh = self.builder.get_object("button13")
 		self.stegh.connect("clicked", self.stegembed)
+
+		#steghextract
+		def radiocall(widget, data=None):
+			if "ON" in (data, ("OFF","ON")[widget.get_active()]):
+				self.activeradio = data
+		self.stegx = self.builder.get_object("button14")
+		self.stegx.connect("clicked", self.stegextract)
+		self.stegradio1 = self.builder.get_object("radiobutton1")
+		self.stegradio1.connect("toggled", radiocall, "button1")
+		self.stegradio2 = self.builder.get_object("radiobutton2")
+		self.stegradio2.connect("toggled", radiocall, "button2")
+		self.stegradio3 = self.builder.get_object("radiobutton3")		
+		self.stegradio3.connect("toggled", radiocall, "button3")
+		self.stegradio3.set_active("ON")
 
 SSAK=SSAK()
 Gtk.main()
