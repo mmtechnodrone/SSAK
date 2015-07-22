@@ -3,3 +3,4 @@ libmhash - for steghide
 libmcrypt - for steghide
 zlib - for steghide
 libjpeg62 - Most distro's use this, needs to be installed manually
+java - for openstego, exif(metadata-extractor2), f5
