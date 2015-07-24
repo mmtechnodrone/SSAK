@@ -29,7 +29,6 @@ class jphs:
 				bashfile = open(execdir + "/programs/" + arch + "/jphide.sh", "w")
 				bashfile.write("#!/bin/bash \n \n")
 				bashfile.write("cd " + re.escape(execdir) + "/programs/" + arch + " \n")
-				bashfile.write("LD_LIBRARY_PATH=LD_LIBRARY_PATH:. ")
 				bashfile.write(execdir + "/programs/" + arch + "/jphide " + re.escape(self.sfile) + " " + re.escape(self.outfile) + " " + re.escape(self.hidefile))
 				bashfile.close()
 				mode = os.stat(execdir + "/programs/" + arch + "/jphide.sh").st_mode
@@ -71,7 +70,6 @@ class jphs:
 				bashfile = open(execdir + "/programs/" + arch + "/jpseek.sh", "w")
 				bashfile.write("#!/bin/bash \n \n")
 				bashfile.write("cd " + re.escape(execdir) + "/programs/" + arch + " \n")
-				bashfile.write("LD_LIBRARY_PATH=LD_LIBRARY_PATH:. ")
 				bashfile.write(execdir + "/programs/" + arch + "/jpseek " + re.escape(self.sfile) + " " + re.escape(self.outfile))
 				bashfile.close()
 				mode = os.stat(execdir + "/programs/" + arch + "/jpseek.sh").st_mode
