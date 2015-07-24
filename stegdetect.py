@@ -111,7 +111,7 @@ class stegdetect:
 			cmd = re.escape(execdir) + "/programs/" + arch + "/stegbreak " + tests + " -r " + re.escape(execdir) + "/programs/noarch/rules.ini -f " + re.escape(dictionary) + " " + self.sfile
 			print cmd
 			self.showprogress()
-			p = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE)
+			p = Popen("exec " + cmd, shell=True, stdout=PIPE, stderr=PIPE)
 			fd = p.stdout.fileno()
 			file_flags = fcntl.fcntl(fd, fcntl.F_GETFL)
 			fcntl.fcntl(fd, fcntl.F_SETFL, file_flags | os.O_NDELAY)

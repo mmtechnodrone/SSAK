@@ -91,7 +91,7 @@ class steghide:
 				self.line = ''
 				cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -f -pf " + re.escape(self.stegpassfile) + " -xf " + re.escape(self.outfile2)
 				self.steghcrackstatus()			
-				proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
+				proc = Popen("exec " + cmd, shell=True, stderr=PIPE, stdout=PIPE)
 				self.pid = proc.pid
 				def test_io_watch(f, cond):
 					out = f.readline()
