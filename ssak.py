@@ -45,6 +45,14 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide):
 		self.selectfile = self.builder.get_object("imagemenuitem1")
 		self.selectfile.connect("activate", self.fileselect)
 
+		#show about dialog
+		self.about = self.builder.get_object("imagemenuitem10")
+		def about(widget):
+			self.buffer1 = self.builder.get_object("textbuffer3")
+			self.buffer1.set_text("Developed by Mark Mayfield \nLicensed under GPLv2 \nhttps://github.com/mmayfield1/SSAK")
+			self.showdiag()
+		self.about.connect("activate", about)
+
 		# call strings functions when readstring button pressed
 		self.readstrings = self.builder.get_object("button1")
 		self.readstrings.connect("clicked", self.strings)
