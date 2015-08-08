@@ -61,8 +61,11 @@ class stegdetect:
 			elif wholedir == "OFF":
 				cmd = re.escape(execdir) + "/programs/" + arch + "/stegdetect " + tests + " -s " + str(size) + " " + re.escape(self.sfile)
 				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
-				stdout, stderr = proc.communicate()
-				line = stdout + stderr
+				line = ''
+				for append in proc.stdout:
+					line += append
+				for append in proc.stderr:
+					line += append
 				self.buffer1.set_text(line)
 				self.showdiag()
 			elif wholedir == "ON":

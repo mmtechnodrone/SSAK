@@ -26,15 +26,8 @@ class jphs:
 				self.outfile = outdir + '/' +tail
 				if os.path.isfile(self.outfile):
 					os.remove(self.outfile)
-				bashfile = open(execdir + "/programs/" + arch + "/jphide.sh", "w")
-				bashfile.write("#!/bin/bash \n \n")
-				bashfile.write("cd " + re.escape(execdir) + "/programs/" + arch + " \n")
-				bashfile.write(execdir + "/programs/" + arch + "/jphide " + re.escape(self.sfile) + " " + re.escape(self.outfile) + " " + re.escape(self.hidefile))
-				bashfile.close()
-				mode = os.stat(execdir + "/programs/" + arch + "/jphide.sh").st_mode
-				mode |= (mode &0o444) >> 2
-				os.chmod(execdir + "/programs/" + arch + "/jphide.sh", mode)
-				child = pexpect.spawn(execdir + '/programs/' + arch + '/jphide.sh')
+				cmd = execdir + "/programs/" + arch + "/jphide " + re.escape(self.sfile) + " " + re.escape(self.outfile) + " " + re.escape(self.hidefile)
+				child = pexpect.spawn(cmd)
 				child.expect('Passphrase:', timeout=2)
 				child.sendline(self.spass)
 				child.expect('Re-enter  :', timeout=2)
@@ -42,7 +35,6 @@ class jphs:
 				child.expect(pexpect.EOF)
 				self.buffer1.set_text("Output file should be located here: " + self.outfile + "!")
 				self.showdiag()
-				os.remove(execdir + "/programs/" + arch + "/jphide.sh")
 			else:
 				self.buffer1.set_text("Input file must be jpeg!")
 				self.showdiag()
@@ -67,21 +59,13 @@ class jphs:
 				self.outfile = outdir + '/' + tail + '.txt'
 				if os.path.isfile(self.outfile):
 					os.remove(self.outfile)
-				bashfile = open(execdir + "/programs/" + arch + "/jpseek.sh", "w")
-				bashfile.write("#!/bin/bash \n \n")
-				bashfile.write("cd " + re.escape(execdir) + "/programs/" + arch + " \n")
-				bashfile.write(execdir + "/programs/" + arch + "/jpseek " + re.escape(self.sfile) + " " + re.escape(self.outfile))
-				bashfile.close()
-				mode = os.stat(execdir + "/programs/" + arch + "/jpseek.sh").st_mode
-				mode |= (mode &0o444) >> 2
-				os.chmod(execdir + "/programs/" + arch + "/jpseek.sh", mode)
-				child = pexpect.spawn(execdir + '/programs/' + arch + '/jpseek.sh')
+				cmd = execdir + "/programs/" + arch + "/jpseek " + re.escape(self.sfile) + " " + re.escape(self.outfile)
+				child = pexpect.spawn(cmd)
 				child.expect('Passphrase:', timeout=2)
 				child.sendline(self.spass)
 				child.expect(pexpect.EOF)
 				self.buffer1.set_text("Output file should be located here: " + self.outfile + "!")
 				self.showdiag()
-				os.remove(execdir + "/programs/" + arch + "/jpseek.sh")
 				os.chmod(self.outfile, 0o600)
 			else:
 				self.buffer1.set_text("Input file must be jpeg!")
