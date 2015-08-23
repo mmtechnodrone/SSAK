@@ -1,3 +1,4 @@
 pygtk3
 python pexpect - for jphs
 java - for openstego, exif(metadata-extractor2), f5
+wine - needed to use Windows executables (jphs, stegbreak only work on Windows version of jphs)
