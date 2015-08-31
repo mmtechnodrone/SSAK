@@ -7,6 +7,7 @@ from jphs import jphs
 from fileops import fileops
 from stegdetect import stegdetect
 from steghide import steghide
+from subprocess import Popen, PIPE
 
 home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
 execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
@@ -17,6 +18,11 @@ except:
 	os.mkdir(home)
 
 class SSAK(openstego, jphs, fileops, stegdetect, steghide):
+
+	def spy(self, widget):
+		cmd = "/usr/bin/wine " + re.escape(execdir) + "/programs/Win/StegSpy2.1.exe"
+		print cmd
+		Popen(cmd, shell=True)
 
 	def showdiag(self):
 		def hidedialog(widget):
@@ -38,7 +44,7 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide):
 		self.window.connect("delete_event", Gtk.main_quit)
 
 		# exit on file menu quit button
-		self.exit = self.builder.get_object("imagemenuitem3")
+		self.exit = self.builder.get_object("imagemenuitem4")
 		self.exit.connect("activate", Gtk.main_quit)
 
 		#select file from file menu
@@ -67,6 +73,10 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide):
 		# call carve function when carve menu item selected
 		self.carveit = self.builder.get_object("imagemenuitem2")
 		self.carveit.connect("activate", self.carveit2) 
+
+		# call function to start StegSpy
+		self.stegspy = self.builder.get_object("imagemenuitem3")
+		self.stegspy.connect("activate", self.spy) 
 
 		# jphide
 		self.jphideit = self.builder.get_object("button6")
