@@ -26,7 +26,7 @@ class jphs:
 				needwin = ("OFF", "ON")[checkwin.get_active()]
 				if needwin == "ON":
 					outdir = home + tail + '/jphidewin'
-					progcmd = "/usr/bin/wine " + execdir + "/programs/Win/jphide.exe " 
+					progcmd = "/usr/bin/wine " + re.escape(execdir) + "/programs/Win/jphide.exe " 
 				else:
 					outdir = home + tail + '/jphidelin'
 					progcmd = execdir + "/programs/" + arch + "/jphide "
@@ -68,7 +68,7 @@ class jphs:
 				needwin = ("OFF", "ON")[checkwin.get_active()]
 				if needwin == "ON":
 					outdir = home + tail + '/jpseekwin'
-					progcmd = "/usr/bin/wine " + execdir + "/programs/Win/jpseek.exe " 
+					progcmd = "/usr/bin/wine " + re.escape(execdir) + "/programs/Win/jpseek.exe " 
 				else:
 					outdir = home + tail + '/jpseeklin'
 					progcmd = execdir + "/programs/" + arch + "/jpseek "
