@@ -21,7 +21,6 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide):
 
 	def spy(self, widget):
 		cmd = "/usr/bin/wine " + re.escape(execdir) + "/programs/Win/StegSpy2.1.exe"
-		print cmd
 		Popen(cmd, shell=True)
 
 	def showdiag(self):
