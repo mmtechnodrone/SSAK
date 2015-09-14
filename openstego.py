@@ -112,17 +112,4 @@ class openstego:
 		else:
 			self.buffer1.set_text("You must select a valid PNG file before performing any operations. Please select a valid PNG file using the file menu!")
 			self.showdiag()
-			
-
-
-
-
-	
-
-
-
-
-
-
-
 
