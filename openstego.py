@@ -1,5 +1,5 @@
-import os, pwd, sys, pexpect, gi, re
-from gi.repository import Gtk
+import os, pwd, sys, gi, re, time, fcntl, pty
+from gi.repository import Gtk, GObject
 from subprocess import Popen, PIPE
 
 home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
@@ -69,7 +69,7 @@ class openstego:
 				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
 				line = str(proc.communicate()[1])
 				if str.strip(line) == '':
-					self.buffer1.set_text("Output file should exist here: " + self.outfile2)
+					self.buffer1.set_text("Output file should exist here: \n" + self.outfile2)
 				else:
 					self.buffer1.set_text(line)
 				self.showdiag()
@@ -88,7 +88,12 @@ class openstego:
 		self.alg2 = (self.algorithm2.get_active())	
 		self.fileinfo = self.builder.get_object("entry3")
 		self.info = self.fileinfo.get_text()
-		self.buffer1 = self.builder.get_object("textbuffer3")
+		self.buffer1 = self.builder.get_object("textbuffer6")
+		self.buffer2 = self.builder.get_object("textbuffer3")
+		self.tw = self.builder.get_object("textview7")
+		self.sw = self.builder.get_object("scrolledwindow6")
+		passattack = self.builder.get_object("checkbutton17")
+		ostegattack = ("OFF", "ON")[passattack.get_active()]
 		if self.alg2 == 0:
 			self.algorithm3 = "RandomLSB"
 		elif self.alg2 == 1:
@@ -98,18 +103,61 @@ class openstego:
 		if not os.path.isdir(outdir):
 			os.mkdir(outdir)
 		if self.sfile != '' and "PNG" in self.info:
-			if value3 == "ON" and str.strip(self.spass) == '':
-				self.buffer1.set_text("If you select the password option you must fill in the password entry!")
-				self.showdiag()
+			self.buffer1.set_text("Please Wait \n")
+			self.passfilechoose = self.builder.get_object("filechooserbutton7")		
+			self.ostegdictionary = str(self.passfilechoose.get_filename())
+			if ostegattack == "ON":
+				if self.ostegdictionary != "None":
+					head, tail = os.path.split(self.sfile)
+					outdir = home + tail + '/openstegattack'
+					if not os.path.isdir(outdir):
+						os.mkdir(outdir)
+					print re.escape(outdir)
+					master, slave = pty.openpty()
+					cmd = "python " + re.escape(execdir) + "/breakosteg.py " + re.escape(self.ostegdictionary) + " " + re.escape(self.sfile) + " " + re.escape(outdir)
+					print cmd
+					proc = Popen("exec " + cmd, shell=True, stdout=slave)
+					pid = proc.pid
+
+					def showprogress():
+						def hideprogress(widget):
+							os.system("kill " + str(pid))
+							self.showstatus.hide()
+						self.showstatus = self.builder.get_object("dialog2")
+						self.statusbutton = self.builder.get_object("button12")
+						self.statusbutton.connect("clicked",hideprogress)
+						self.showstatus.show()
+					showprogress()
+					def test_io_watch(f, cond):
+						out = f.readline()
+						end_iter = self.buffer1.get_end_iter()
+						self.buffer1.insert(end_iter, out)
+						adj = self.sw.get_vadjustment()
+						adj.set_value(adj.get_upper() - adj.get_page_size())
+						if "Extracted" in out:
+							print out
+						if out == '':
+							return False
+						return True
+	
+					GObject.io_add_watch(os.fdopen(master), GObject.IO_IN | GObject.IO_HUP, test_io_watch)
+				else:
+					self.buffer2.set_text("You must select a dictionary if you want to perform a dictionary attack!")
+					self.showdiag()
 			else:
-				cmd = stegprog + ' extract --algorithm=' + self.algorithm3 + ' --stegofile=' + re.escape(self.sfile) + ' --extractdir=' + re.escape(outdir)
-				if value3 == "ON":
-					cmd += ' --password=' + self.spass
-				proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
-				line = str(proc.communicate()[1])
-				self.buffer1.set_text(line)
-				self.showdiag()
+				if value3 == "ON" and str.strip(self.spass) == '':
+					self.buffer2.set_text("If you select the password option you must fill in the password entry!")
+					self.showdiag()
+				else:
+					cmd = stegprog + ' extract --algorithm=' + self.algorithm3 + ' --stegofile=' + re.escape(self.sfile) + ' --extractdir=' + re.escape(outdir)
+					if value3 == "ON":
+						cmd += ' --password=' + self.spass
+					proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
+					line = str(proc.communicate()[1])
+					self.buffer2.set_text(line)
+					self.showdiag()
 		else:
-			self.buffer1.set_text("You must select a valid PNG file before performing any operations. Please select a valid PNG file using the file menu!")
+			self.buffer2.set_text("You must select a valid PNG file before performing any operations. Please select a valid PNG file using the file menu!")
 			self.showdiag()
+			
 
