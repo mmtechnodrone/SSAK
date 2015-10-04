@@ -23,6 +23,14 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide):
 		cmd = "/usr/bin/wine " + re.escape(execdir) + "/programs/Win/StegSpy2.1.exe"
 		Popen(cmd, shell=True)
 
+	def diitrun(self, widget):
+		cmd2 = "java -jar " + re.escape(execdir) + "/programs/noarch/diit-1.5.jar"
+		Popen(cmd2, shell=True)
+
+	def bmppackerrun(self, widget):
+		cmd3 = "/usr/bin/wine " + re.escape(execdir) + "/programs/Win/bmpPacker.exe"
+		Popen(cmd3, shell=True)
+
 	def showdiag(self):
 		def hidedialog(widget):
 			self.nofiledialog.hide()
@@ -53,9 +61,13 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide):
 		#show about dialog
 		self.about = self.builder.get_object("imagemenuitem10")
 		def about(widget):
-			self.buffer1 = self.builder.get_object("textbuffer3")
-			self.buffer1.set_text("Developed by Mark Mayfield \nLicensed under GPLv2 \nhttps://github.com/mmayfield1/SSAK")
-			self.showdiag()
+			def hideabout(widget):
+				self.aboutwin.hide()
+			self.aboutwin = self.builder.get_object("window3")
+			self.aboutwin.set_title("About SSAK")
+			self.aboutclose = self.builder.get_object("button16")
+			self.aboutclose.connect("clicked",hideabout)
+			self.aboutwin.show()		
 		self.about.connect("activate", about)
 
 		# call strings functions when readstring button pressed
@@ -76,6 +88,14 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide):
 		# call function to start StegSpy
 		self.stegspy = self.builder.get_object("imagemenuitem3")
 		self.stegspy.connect("activate", self.spy) 
+
+		# call function to start DIIT
+		self.diit = self.builder.get_object("imagemenuitem5")
+		self.diit.connect("activate", self.diitrun)
+
+		# call function to start BMPPacker
+		self.bmppacker = self.builder.get_object("imagemenuitem7")
+		self.bmppacker.connect("activate", self.bmppackerrun)
 
 		# jphide
 		self.jphideit = self.builder.get_object("button6")

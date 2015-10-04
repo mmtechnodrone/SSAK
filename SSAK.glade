@@ -2,6 +2,103 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
+  <object class="GtkTextBuffer" id="About">
+    <property name="text" translatable="yes">Developed by Mark Mayfield
+Licensed under GPLv2
+https://github.com/mmayfield1/SSAK</property>
+  </object>
+  <object class="GtkWindow" id="window3">
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkBox" id="box81">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkImage" id="image1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="pixbuf">magnifying-glass.jpg</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTextView" id="textview10">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="buffer">About</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box82">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="homogeneous">True</property>
+            <child>
+              <object class="GtkFixed" id="fixed13">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFixed" id="fixed14">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFixed" id="fixed15">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="button16">
+                <property name="label" translatable="yes">Close</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
   <object class="GtkAction" id="action1"/>
   <object class="GtkAdjustment" id="adjustment1">
     <property name="lower">1</property>
@@ -40,6 +137,16 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="stock">gtk-quit</property>
+  </object>
+  <object class="GtkImage" id="image7">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-media-play</property>
+  </object>
+  <object class="GtkImage" id="image8">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="stock">gtk-media-play</property>
   </object>
   <object class="GtkTextBuffer" id="jphs">
     <property name="text" translatable="yes">                		 *** D A N G E R O U S ***
@@ -194,6 +301,129 @@ Examples:
 
       java -jar &lt;path&gt;/openstego.jar embed -a lsb \
         -cf "img???.png;wall*.png" -mf watermark.txt</property>
+  </object>
+  <object class="GtkTextBuffer" id="outuguess">
+    <property name="text" translatable="yes">
+NAME
+
+       outguess - universal steganographic tool
+
+SYNOPSIS
+
+       outguess  [  -emt  ] [ -r ] [ -k key ] [ -F [+-] ] [ -d datafile ] [ -s
+       seed ] [ -i limit ] [  -x  maxkeys  ]  [  -p  param  ]  [  inputfile  [
+       outputfile ]]
+
+DESCRIPTION
+
+       Outguess  is  a universal steganographic tool that allows the insertion
+       of hidden information into the redundant bits  of  data  sources.   The
+       nature  of  the data source is irrelevant to the core of outguess.  The
+       program relies on data specific handlers that  will  extract  redundant
+       bits  and  write  them back after modification. Currently only the PPM,
+       PNM, and JPEG image formats are supported, although outguess could  use
+       any kind of data, as long as a handler were provided.
+
+       Outguess  uses  a  generic  iterator object to select which bits in the
+       data should be modified.  A seed can be used to modify the behavior  of
+       the  iterator.  It  is  embedded in the data along with the rest of the
+       message.  By altering the seed, outguess tries to find  a  sequence  of
+       bits  that  minimizes the number of changes in the data that have to be
+       made.
+
+       A bias is introduced that favors the modification  of  bits  that  were
+       extracted  from  a  high  value, and tries to avoid the modification of
+       bits that were extracted from a low value.
+
+       Additionally, Outguess allows for the hiding of two  distinct  messages
+       in  the  data,  thus providing plausible deniablity.  It keeps track of
+       the bits  that  have  been  modified  previously  and  locks  them.   A
+       (23,12,7)   Golay  code  is  used  for  error  correction  to  tolerate
+       collisions on locked bits.  Artifical errors are  introduced  to  avoid
+       modifying bits that have a high bias.
+
+OPTIONS
+
+       The  following command line options, when specified as capital letters,
+       indicate options for the second message.
+
+       -F [+-]
+              Specifies that OutGuess  should  preserve  statistics  based  on
+              frequency  counts.   As  a  result,  no statistical test that is
+              based on frequency counts will be able to detect  steganographic
+              content.  This option is on by default.
+
+       -kK key
+              Specify  the  secret key used to encrypt and hide the message in
+              the provided data.
+
+       -dD datafile
+              Specify the filename containing a message to be  hidden  in  the
+              data.
+
+       -sS seed
+              Specify  the initial seed the iterator object uses for selecting
+              bits in the redundant data. If no upper limit is specified,  the
+              iterator will use this seed without searching for a more optimal
+              embedding.
+
+       -iI limit
+              Specify the upper limit for finding an  optimal  iterator  seed.
+              The maximum value for the limit is 65535.
+
+       -eE    Use error correction for data encoding and decoding.
+
+       Other options that apply to the general execution of outguess:
+
+       -r     Retrieve  a  message  from a data object.  If this option is not
+              specified, outguess will embed messages.
+
+       -x maxkeys
+              If the second key does not create an  iterator  object  that  is
+              successful  in embedding the data, the program will derive up to
+              specified number of new keys.
+
+       -p param
+              Passes a string as parameter to the  destination  data  handler.
+              For  the  JPEG image format, this is the compression quality, it
+              can take values between 75 and 100.  The higher the quality  the
+              more bits to hide a message in the data are available.
+
+       -m     Mark pixels that have been modified.
+
+       -t     Collect  statistics  about  redundant  bit  usage.  Repeated use
+              increases output level.
+
+       For embedding messages, you need to specify a source and a  destination
+       filename.    Outguess  determines  the  data  format  by  the  filename
+       extension.  If no filenames are specified outguess operates as a filter
+       and assumes the PPM data format.
+
+EXAMPLES
+
+       To embed the message hidden.txt into the monkey.jpg image:
+
+              outguess  -k  "my  secret  pass phrase" -d hidden.txt monkey.jpg
+              out.jpg
+
+       And in the other direction:
+
+              outguess -k "my secret pass phrase" -r out.jpg message.txt
+
+       will retrieve the hidden message from the image.
+
+       If you want to embed a second message, use:
+
+              outguess -k "secret1" -d hide1.txt -E -K "secret2" -D  hide2.txt
+              monkey.jpg out.jpg
+
+       Outguess  will  first  embed hide1.txt and then hide2.txt on top of it,
+       using error correcting codes.  The  second  message  hide2.txt  can  be
+       retrieved with
+
+              outguess -k "secret2" -e -r out.jpg message.txt
+
+</property>
   </object>
   <object class="GtkRadioButton" id="radiobutton4">
     <property name="label" translatable="yes">radiobutton</property>
@@ -577,6 +807,24 @@ To extract embedded data from stg.jpg: steghide extract -sf stg.jpg</property>
                       </object>
                     </child>
                     <child>
+                      <object class="GtkImageMenuItem" id="imagemenuitem5">
+                        <property name="label" translatable="yes">DIIT</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="image">image7</property>
+                        <property name="use_stock">False</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="imagemenuitem7">
+                        <property name="label" translatable="yes">BMPPacker</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="image">image8</property>
+                        <property name="use_stock">False</property>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkSeparatorMenuItem" id="separatormenuitem1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -661,49 +909,6 @@ To extract embedded data from stg.jpg: steghide extract -sf stg.jpg</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="valign">start</property>
-            <child>
-              <object class="GtkFrame" id="frame1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="shadow_type">none</property>
-                <child>
-                  <object class="GtkAlignment" id="alignment1">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="left_padding">12</property>
-                    <child>
-                      <object class="GtkImage" id="image1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="margin_bottom">2</property>
-                        <property name="pixbuf">magnifying-glass.jpg</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child type="label">
-                  <object class="GtkLabel" id="label8">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Steganography Swiss Army Knife</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="tab_fill">False</property>
-              </packing>
-            </child>
-            <child type="tab">
-              <object class="GtkLabel" id="label1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">SSAK</property>
-              </object>
-              <packing>
-                <property name="tab_fill">False</property>
-              </packing>
-            </child>
             <child>
               <object class="GtkFrame" id="frame2">
                 <property name="visible">True</property>
@@ -1293,7 +1498,6 @@ To extract embedded data from stg.jpg: steghide extract -sf stg.jpg</property>
                 </child>
               </object>
               <packing>
-                <property name="position">1</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -1304,7 +1508,6 @@ To extract embedded data from stg.jpg: steghide extract -sf stg.jpg</property>
                 <property name="label" translatable="yes">StegDetect</property>
               </object>
               <packing>
-                <property name="position">1</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -1909,7 +2112,7 @@ Name</property>
                 </child>
               </object>
               <packing>
-                <property name="position">2</property>
+                <property name="position">1</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -1920,7 +2123,7 @@ Name</property>
                 <property name="label" translatable="yes">Steghide</property>
               </object>
               <packing>
-                <property name="position">2</property>
+                <property name="position">1</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -2321,7 +2524,7 @@ Name</property>
                 </child>
               </object>
               <packing>
-                <property name="position">3</property>
+                <property name="position">2</property>
                 <property name="tab_expand">True</property>
               </packing>
             </child>
@@ -2330,6 +2533,129 @@ Name</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">JPHS</property>
+              </object>
+              <packing>
+                <property name="position">2</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFrame" id="frame1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <child>
+                  <object class="GtkAlignment" id="alignment1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="left_padding">12</property>
+                    <child>
+                      <object class="GtkBox" id="box77">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
+                        <property name="homogeneous">True</property>
+                        <child>
+                          <object class="GtkBox" id="box78">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="homogeneous">True</property>
+                            <child>
+                              <object class="GtkBox" id="box79">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox" id="box80">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                                <child>
+                                  <placeholder/>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkScrolledWindow" id="scrolledwindow8">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="shadow_type">in</property>
+                            <child>
+                              <object class="GtkTextView" id="textview9">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="buffer">outuguess</property>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child type="label">
+                  <object class="GtkLabel" id="label8">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Outguess - Stego for JPEG, Same author as StegDetect</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child type="tab">
+              <object class="GtkLabel" id="label1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Outguess</property>
               </object>
               <packing>
                 <property name="position">3</property>
