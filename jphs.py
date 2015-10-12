@@ -8,8 +8,7 @@ arch = str(8 * struct.calcsize("P"))
 class jphs:
 
 	def jphideit2(self, widget):
-		cmd = "export WINEDEBUG=warn-all,-heap,-relay,err-all,fixme-all,trace-all"
-		os.system(cmd)
+		os.environ["WINEDEBUG"] = "warn-all,-heap,-relay,err-all,fixme-all,trace-all"
 		self.file = self.builder.get_object("entry1")
 		self.sfile = self.file.get_text()
 		self.password = self.builder.get_object("entry5")
@@ -37,9 +36,9 @@ class jphs:
 					os.remove(self.outfile)
 				cmd = progcmd + re.escape(self.sfile) + " " + re.escape(self.outfile) + " " + re.escape(self.hidefile)
 				child = pexpect.spawn(cmd)
-				child.expect('Passphrase:', timeout=2)
+				child.expect('Passphrase:')
 				child.sendline(self.spass)
-				child.expect('Re-enter  :', timeout=2)
+				child.expect('Re-enter  :')
 				child.sendline(self.spass)
 				child.expect(pexpect.EOF)
 				self.buffer1.set_text("Output file should be located here: " + self.outfile + "!")
@@ -52,8 +51,7 @@ class jphs:
 			self.showdiag()
 
 	def jpseekit2(self, widget):
-		cmd = "export WINEDEBUG=warn-all,-heap,-relay,err-all,fixme-all,trace-all"
-		os.system(cmd)
+		os.environ["WINEDEBUG"] = "warn-all,-heap,-relay,err-all,fixme-all,trace-all"
 		self.file = self.builder.get_object("entry1")
 		self.sfile = self.file.get_text()
 		self.password = self.builder.get_object("entry4")
@@ -79,7 +77,7 @@ class jphs:
 					os.remove(self.outfile)
 				cmd = progcmd + re.escape(self.sfile) + " " + re.escape(self.outfile)
 				child = pexpect.spawn(cmd)
-				child.expect('Passphrase:', timeout=2)
+				child.expect('Passphrase:')
 				child.sendline(self.spass)
 				child.expect(pexpect.EOF)
 				self.buffer1.set_text("Output file should be located here: " + self.outfile + "!")
