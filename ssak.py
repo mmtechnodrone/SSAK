@@ -7,6 +7,7 @@ from jphs import jphs
 from fileops import fileops
 from stegdetect import stegdetect
 from steghide import steghide
+from outguess import outguess
 from subprocess import Popen, PIPE
 
 home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
@@ -17,9 +18,10 @@ try:
 except:
 	os.mkdir(home)
 
-class SSAK(openstego, jphs, fileops, stegdetect, steghide):
+class SSAK(openstego, jphs, fileops, stegdetect, steghide, outguess):
 
 	def spy(self, widget):
+		os.environ["WINEDEBUG"] = "warn-all,-heap,-relay,err-all,fixme-all,trace-all"
 		cmd = "/usr/bin/wine " + re.escape(execdir) + "/programs/Win/StegSpy2.1.exe"
 		Popen(cmd, shell=True)
 
@@ -28,6 +30,7 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide):
 		Popen(cmd2, shell=True)
 
 	def bmppackerrun(self, widget):
+		os.environ["WINEDEBUG"] = "warn-all,-heap,-relay,err-all,fixme-all,trace-all"
 		cmd3 = "/usr/bin/wine " + re.escape(execdir) + "/programs/Win/bmpPacker.exe"
 		Popen(cmd3, shell=True)
 
@@ -116,6 +119,10 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide):
 		self.ostegextract.connect("clicked", self.ostegextract2)
 		checkbutton4 = self.builder.get_object("checkbutton1")
 		checkbutton4.connect("toggled", self.togglepass2)
+
+		# outguessextract
+		self.outextract = self.builder.get_object("button18")
+		self.outextract.connect("clicked", self.extractguess)
 
 		# stegdetect
 		self.steg = self.builder.get_object("button11")
