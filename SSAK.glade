@@ -101,7 +101,6 @@ https://github.com/mmayfield1/SSAK</property>
       </object>
     </child>
   </object>
-  <object class="GtkAction" id="action1"/>
   <object class="GtkAdjustment" id="adjustment1">
     <property name="lower">1</property>
     <property name="upper">100</property>
@@ -2593,40 +2592,13 @@ Name</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkBox" id="box89">
+                                      <object class="GtkCheckButton" id="checkbutton20">
+                                        <property name="label" translatable="yes">Use version 0.13 instead of 0.2</property>
                                         <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="homogeneous">True</property>
-                                        <child>
-                                          <object class="GtkLabel" id="label47">
-                                            <property name="visible">True</property>
-                                            <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
-                                            <property name="label" translatable="yes">Output Format:</property>
-                                          </object>
-                                          <packing>
-                                            <property name="expand">False</property>
-                                            <property name="fill">True</property>
-                                            <property name="position">0</property>
-                                          </packing>
-                                        </child>
-                                        <child>
-                                          <object class="GtkComboBoxText" id="comboboxtext4">
-                                            <property name="visible">True</property>
-                                            <property name="can_focus">False</property>
-                                            <property name="active">0</property>
-                                            <items>
-                                              <item id="0" translatable="yes">JPG</item>
-                                              <item id="1" translatable="yes">PPM</item>
-                                              <item id="2" translatable="yes">PMN</item>
-                                            </items>
-                                          </object>
-                                          <packing>
-                                            <property name="expand">False</property>
-                                            <property name="fill">True</property>
-                                            <property name="position">1</property>
-                                          </packing>
-                                        </child>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
+                                        <property name="xalign">0</property>
+                                        <property name="draw_indicator">True</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -2757,11 +2729,14 @@ Name</property>
                                         <property name="can_focus">False</property>
                                         <property name="homogeneous">True</property>
                                         <child>
-                                          <object class="GtkLabel" id="label45">
+                                          <object class="GtkCheckButton" id="checkbutton25">
+                                            <property name="label" translatable="yes">Use Password:</property>
                                             <property name="visible">True</property>
-                                            <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
-                                            <property name="label" translatable="yes">Password:</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="active">True</property>
+                                            <property name="draw_indicator">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -2801,9 +2776,40 @@ Name</property>
                                     <property name="orientation">vertical</property>
                                     <property name="homogeneous">True</property>
                                     <child>
-                                      <object class="GtkFixed" id="fixed16">
+                                      <object class="GtkBox" id="box89">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
+                                        <property name="homogeneous">True</property>
+                                        <child>
+                                          <object class="GtkLabel" id="label47">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="xalign">0.05000000074505806</property>
+                                            <property name="label" translatable="yes">Output Format:</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkComboBoxText" id="comboboxtext4">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="active">0</property>
+                                            <items>
+                                              <item id="0" translatable="yes">JPG</item>
+                                              <item id="1" translatable="yes">PPM</item>
+                                              <item id="2" translatable="yes">PMN</item>
+                                            </items>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -2886,9 +2892,13 @@ Name</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkFixed" id="fixed20">
+                                      <object class="GtkCheckButton" id="checkbutton22">
+                                        <property name="label" translatable="yes">Use version 0.13 instead of 0.2</property>
                                         <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
+                                        <property name="xalign">0</property>
+                                        <property name="draw_indicator">True</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -2944,7 +2954,7 @@ Name</property>
                                     <property name="orientation">vertical</property>
                                     <property name="homogeneous">True</property>
                                     <child>
-                                      <object class="GtkFixed" id="fixed23">
+                                      <object class="GtkFixed" id="fixed20">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                       </object>
@@ -2960,11 +2970,15 @@ Name</property>
                                         <property name="can_focus">False</property>
                                         <property name="homogeneous">True</property>
                                         <child>
-                                          <object class="GtkLabel" id="label50">
+                                          <object class="GtkCheckButton" id="checkbutton24">
+                                            <property name="label" translatable="yes">Use Password:</property>
+                                            <property name="related_action"/>
                                             <property name="visible">True</property>
-                                            <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
-                                            <property name="label" translatable="yes">Password:</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="active">True</property>
+                                            <property name="draw_indicator">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
