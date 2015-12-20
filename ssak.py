@@ -120,6 +120,10 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide, outguess):
 		checkbutton4 = self.builder.get_object("checkbutton1")
 		checkbutton4.connect("toggled", self.togglepass2)
 
+		# outguessembed
+		self.outembed = self.builder.get_object("button17")
+		self.outembed.connect("clicked", self.embedguess)
+
 		# outguessextract
 		self.outextract = self.builder.get_object("button18")
 		self.outextract.connect("clicked", self.extractguess)

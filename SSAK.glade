@@ -1106,8 +1106,8 @@ To extract embedded data from stg.jpg: steghide extract -sf stg.jpg</property>
                                           <object class="GtkLabel" id="label31">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Sensitivity</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -1271,8 +1271,8 @@ To extract embedded data from stg.jpg: steghide extract -sf stg.jpg</property>
                                       <object class="GtkLabel" id="label32">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="xalign">0.0099999997764825821</property>
                                         <property name="label" translatable="yes">Steg Type:</property>
+                                        <property name="xalign">0.0099999997764825821</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -1362,8 +1362,8 @@ To extract embedded data from stg.jpg: steghide extract -sf stg.jpg</property>
                                           <object class="GtkLabel" id="label30">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Select Dictionary:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -1650,8 +1650,8 @@ Name</property>
                                           <object class="GtkLabel" id="label38">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Message File:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -1686,8 +1686,8 @@ Name</property>
                                           <object class="GtkLabel" id="label37">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Encryption Type:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -1757,8 +1757,8 @@ Name</property>
                                           <object class="GtkLabel" id="label39">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Passphrase:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -1941,8 +1941,8 @@ Name</property>
                                           <object class="GtkLabel" id="label41">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Password File:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -2001,8 +2001,8 @@ Name</property>
                                           <object class="GtkLabel" id="label40">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Passphrase:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -2308,8 +2308,8 @@ Name</property>
                                           <object class="GtkLabel" id="label18">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Hide File:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -2346,8 +2346,8 @@ Name</property>
                                           <object class="GtkLabel" id="label19">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Password:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -2394,8 +2394,8 @@ Name</property>
                                           <object class="GtkLabel" id="label20">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Password:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -2628,8 +2628,8 @@ Name</property>
                                           <object class="GtkLabel" id="label46">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">File To Hide:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -2664,8 +2664,8 @@ Name</property>
                                           <object class="GtkLabel" id="label48">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Quality %:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -2714,8 +2714,8 @@ Name</property>
                                       <object class="GtkLabel" id="label49">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="xalign">0.20000000298023224</property>
                                         <property name="label" translatable="yes">Compression range can be between 75 and 100%</property>
+                                        <property name="xalign">0.20000000298023224</property>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -2784,8 +2784,8 @@ Name</property>
                                           <object class="GtkLabel" id="label47">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Output Format:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -2796,6 +2796,7 @@ Name</property>
                                         <child>
                                           <object class="GtkComboBoxText" id="comboboxtext4">
                                             <property name="visible">True</property>
+                                            <property name="sensitive">False</property>
                                             <property name="can_focus">False</property>
                                             <property name="active">0</property>
                                             <items>
@@ -3192,8 +3193,8 @@ Name</property>
                                           <object class="GtkLabel" id="label26">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Algorithm:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -3233,8 +3234,8 @@ Name</property>
                                           <object class="GtkLabel" id="label25">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Hide File:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -3325,8 +3326,8 @@ Name</property>
                                           <object class="GtkLabel" id="label27">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Password:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -3440,8 +3441,8 @@ Name</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="margin_bottom">15</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Algorithm:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -3580,8 +3581,8 @@ Name</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="margin_top">12</property>
-                                            <property name="xalign">0.05000000074505806</property>
                                             <property name="label" translatable="yes">Password:</property>
+                                            <property name="xalign">0.05000000074505806</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
