@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import sys, pygtk, gi, os, re, pwd, struct
-from gi.repository import Gtk
+from gi.repository import Gtk, GLib, Vte
 from openstego import openstego
 from jphs import jphs
 from fileops import fileops
@@ -34,6 +34,15 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide, outguess):
 		cmd3 = "/usr/bin/wine " + re.escape(execdir) + "/programs/Win/bmpPacker.exe"
 		Popen(cmd3, shell=True)
 
+	def launchterm(self, widget):
+		print "bah"
+		windowvte = Gtk.Window()
+		v = Vte.Terminal ()
+		windowvte.add(v)
+		v.spawn_sync(Vte.PtyFlags.DEFAULT, execdir + "/programs", ["/bin/bash"], [], GLib.SpawnFlags.DO_NOT_REAP_CHILD, None, None, )
+		windowvte.connect('delete-event', lambda window, event: windowvte.hide() or True)
+		windowvte.show_all()
+
 	def showdiag(self):
 		def hidedialog(widget):
 			self.nofiledialog.hide()
@@ -41,6 +50,7 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide, outguess):
 		self.nofiledialogbutton = self.builder.get_object("button5")
 		self.nofiledialogbutton.connect("clicked",hidedialog)
 		self.nofiledialog.show()
+		self.nofiledialog.connect("delete-event", lambda window, event: self.nofiledialog.hide() or True)
 
 	def __init__(self):
 		gladefile = execdir + "/SSAK.glade"
@@ -49,6 +59,7 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide, outguess):
 		self.window = self.builder.get_object("window1")
 		self.window.set_title("SSAK - Steganography Swiss Army Knife")
 		self.window.show_all()
+
 
 		# exit on windows x button
 		self.window.connect("delete_event", Gtk.main_quit)
@@ -64,10 +75,11 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide, outguess):
 		#show about dialog
 		self.about = self.builder.get_object("imagemenuitem10")
 		def about(widget):
-			def hideabout(widget):
-				self.aboutwin.hide()
 			self.aboutwin = self.builder.get_object("window3")
 			self.aboutwin.set_title("About SSAK")
+			self.aboutwin.connect("delete-event", lambda window, event: self.aboutwin.hide() or True)
+			def hideabout(widget):
+				self.aboutwin.hide()
 			self.aboutclose = self.builder.get_object("button16")
 			self.aboutclose.connect("clicked",hideabout)
 			self.aboutwin.show()		
@@ -99,6 +111,10 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide, outguess):
 		# call function to start BMPPacker
 		self.bmppacker = self.builder.get_object("imagemenuitem7")
 		self.bmppacker.connect("activate", self.bmppackerrun)
+
+		# call function to launch terminal
+		self.terminal = self.builder.get_object("imagemenuitem8")
+		self.terminal.connect("activate", self.launchterm)
 
 		# jphide
 		self.jphideit = self.builder.get_object("button6")

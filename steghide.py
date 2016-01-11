@@ -21,6 +21,7 @@ class steghide:
 		self.steghpass = self.builder.get_object("entry8")
 		self.hpass = self.steghpass.get_text()
 		self.steghchooser = self.builder.get_object("filechooserbutton5")
+		self.steghchooser.connect("delete-event", lambda window, event: self.steghchooser.destroy() or True)
 		self.steghidefile = str(self.steghchooser.get_filename())
 		self.file = self.builder.get_object("entry1")
 		self.sfile = self.file.get_text()

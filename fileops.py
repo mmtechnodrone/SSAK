@@ -28,6 +28,7 @@ class fileops:
 			chooser.destroy()
 		elif response == Gtk.ResponseType.CANCEL:
 			chooser.destroy()
+		chooser.connect("delete-event", lambda window, event: chooser.hide() or True)
 
 	def exif(self, widget):
 		self.file = self.builder.get_object("entry1")

@@ -112,12 +112,8 @@ class stegdetect:
 		if self.sfile != '' and dictionary != None:
 			self.buffer1.set_text("Please Wait \n")
 			cmd = re.escape(execdir) + "/programs/" + arch + "/stegbreak " + tests + " -r " + re.escape(execdir) + "/programs/noarch/rules.ini -f " + re.escape(dictionary) + " " + self.sfile
-			print cmd
 			self.showprogress()
 			p = Popen("exec " + cmd, shell=True, stdout=PIPE, stderr=PIPE)
-			fd = p.stdout.fileno()
-			file_flags = fcntl.fcntl(fd, fcntl.F_GETFL)
-			fcntl.fcntl(fd, fcntl.F_SETFL, file_flags | os.O_NDELAY)
 			self.pid = p.pid
 			def test_io_watch(f, cond):
 				out = f.readline()

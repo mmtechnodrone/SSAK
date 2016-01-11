@@ -42,6 +42,7 @@ class openstego:
 		elif self.alg == 1:
 			self.algorithm2 = "LSB"
 		self.fchooser2 = self.builder.get_object("filechooserbutton2")
+		self.fchooser2.connect("delete-event", lambda window, event: self.fchooser2.destroy() or True)
 		self.hidefile2 = str(self.fchooser2.get_filename())
 		head, tail = os.path.split(self.sfile)
 		outdir = home + tail + '/openstegembed'
