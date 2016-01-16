@@ -35,11 +35,14 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide, outguess):
 		Popen(cmd3, shell=True)
 
 	def launchterm(self, widget):
-		print "bah"
 		windowvte = Gtk.Window()
 		v = Vte.Terminal ()
 		windowvte.add(v)
-		v.spawn_sync(Vte.PtyFlags.DEFAULT, execdir + "/programs", ["/bin/bash"], [], GLib.SpawnFlags.DO_NOT_REAP_CHILD, None, None, )
+		termdir = execdir + "/programs"
+		try: 
+			v.spawn_sync(Vte.PtyFlags.DEFAULT, termdir, ["/bin/bash"], [], GLib.SpawnFlags.DO_NOT_REAP_CHILD, None, None, )
+		except:
+			v.fork_command_full(Vte.PtyFlags.DEFAULT, termdir, ["/bin/sh"], [], GLib.SpawnFlags.DO_NOT_REAP_CHILD, None, None, )
 		windowvte.connect('delete-event', lambda window, event: windowvte.hide() or True)
 		windowvte.show_all()
 
