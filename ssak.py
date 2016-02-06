@@ -8,6 +8,7 @@ from fileops import fileops
 from stegdetect import stegdetect
 from steghide import steghide
 from outguess import outguess
+from f5 import f5
 from subprocess import Popen, PIPE
 
 home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
@@ -18,7 +19,7 @@ try:
 except:
 	os.mkdir(home)
 
-class SSAK(openstego, jphs, fileops, stegdetect, steghide, outguess):
+class SSAK(openstego, jphs, fileops, stegdetect, steghide, outguess, f5):
 
 	def spy(self, widget):
 		os.environ["WINEDEBUG"] = "warn-all,-heap,-relay,err-all,fixme-all,trace-all"
@@ -146,6 +147,14 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide, outguess):
 		# outguessextract
 		self.outextract = self.builder.get_object("button18")
 		self.outextract.connect("clicked", self.extractguess)
+
+		# f5 embed
+		self.f5embedit = self.builder.get_object("button19")
+		self.f5embedit.connect("clicked", self.f5embed)
+
+		# outguessextract
+		self.f5extractit = self.builder.get_object("button20")
+		self.f5extractit.connect("clicked", self.f5extract)
 
 		# stegdetect
 		self.steg = self.builder.get_object("button11")
