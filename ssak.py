@@ -152,7 +152,7 @@ class SSAK(openstego, jphs, fileops, stegdetect, steghide, outguess, f5):
 		self.f5embedit = self.builder.get_object("button19")
 		self.f5embedit.connect("clicked", self.f5embed)
 
-		# outguessextract
+		# f5 extract
 		self.f5extractit = self.builder.get_object("button20")
 		self.f5extractit.connect("clicked", self.f5extract)
 
