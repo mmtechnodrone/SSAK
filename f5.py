@@ -18,6 +18,7 @@ class f5:
 		f5pass = self.getf5pass.get_text()
 		self.file = self.builder.get_object("entry1")
 		self.sfile = self.file.get_text()
+		self.fileinfo = self.builder.get_object("entry3")
 		filetype = self.fileinfo.get_text()
 		self.buffer1 = self.builder.get_object("textbuffer3")
 		head, tail = os.path.split(self.sfile)
@@ -26,7 +27,6 @@ class f5:
 			os.mkdir(outdir)
 		if self.sfile != '' and str.strip(f5pass) != '' and f5embedfile != None:
 			if "JPEG" in filetype:
-
 				cmd = stegprog + 'e -e ' + f5embedfile + ' -p ' + f5pass + ' -q ' + str(f5quality) + ' ' + self.sfile + ' ' + outdir + '/' + tail
 				print cmd
 				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
@@ -45,6 +45,28 @@ class f5:
 			self.buffer1.set_text("You must select a valid input JPEG input file, a valid hide file and a password")
 			self.showdiag()
 
-
 	def f5extract(self, widget):
-		print bah
+		self.buffer1 = self.builder.get_object("textbuffer3")
+		self.file = self.builder.get_object("entry1")
+		self.sfile = self.file.get_text()
+		self.f5extpass = self.builder.get_object("entry13")
+		extpass = self.f5extpass.get_text()
+		self.fileinfo = self.builder.get_object("entry3")
+		filetype = self.fileinfo.get_text()
+		head, tail = os.path.split(self.sfile)
+		outdir = home + tail + '/f5extract'
+		if not os.path.isdir(outdir):
+			os.mkdir(outdir)
+		if self.sfile != '' and str.strip(extpass):
+			if "JPEG" in filetype:
+				cmd = stegprog + 'x -p ' + extpass + ' -e ' + outdir + '/' + tail + ' ' + self.sfile
+				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
+				self.buffer1.set_text("Output file should exist here: \n" + outdir + '/' + tail)
+				self.showdiag()
+			else:
+				self.buffer1.set_text("Input file must be jpeg!")
+				self.showdiag()
+		else:
+			self.buffer1.set_text("You must inputa valid JPEG input file and a password")
+			self.showdiag()
+
