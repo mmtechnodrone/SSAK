@@ -32,22 +32,23 @@ class f5:
 		if self.sfile != '' and str.strip(f5pass) != '' and f5embedfile != None:
 			if "JPEG" in filetype:
 				insertcomment = ''
-				if usecomment == "ON" and getcomment.get_text() != '':
+				if usecomment =="ON" and getcomment.get_text() != "":
 					insertcomment = ' -c ' + re.escape(getcomment.get_text())
-				else:
+				if usecomment == "ON" and getcomment.get_text() == "":
 					self.buffer1.set_text("If comment box checked you must enter a comment!")
+					self.showdiag()	
+				else:
+					cmd = stegprog + 'e -e ' + re.escape(f5embedfile) + ' -p ' + re.escape(f5pass) + ' -q ' + str(f5quality) + ' ' + insertcomment + ' ' + re.escape(self.sfile) + ' ' + re.escape(outfile)
+					print cmd
+					proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
+					pid = proc.pid
+					pid2 = int(proc.pid) + 1
+					print pid2
+					time.sleep(2)
+					os.system("kill " + str(pid) + ' ' + str(pid2))
+					print pid
+					self.buffer1.set_text("If successful the output file should exist here: \n" + outfile)
 					self.showdiag()
-				cmd = stegprog + 'e -e ' + re.escape(f5embedfile) + ' -p ' + re.escape(f5pass) + ' -q ' + str(f5quality) + ' ' + insertcomment + ' ' + re.escape(self.sfile) + ' ' + re.escape(outfile)
-				print cmd
-				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
-				pid = proc.pid
-				pid2 = int(proc.pid) + 1
-				print pid2
-				time.sleep(2)
-				os.system("kill " + str(pid) + ' ' + str(pid2))
-				print pid
-				self.buffer1.set_text("If successful the output file should exist here: \n" + outfile)
-				self.showdiag()
 			else:
 				self.buffer1.set_text("Input file must be jpeg!")
 				self.showdiag()
