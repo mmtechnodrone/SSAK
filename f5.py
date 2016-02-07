@@ -21,6 +21,9 @@ class f5:
 		self.fileinfo = self.builder.get_object("entry3")
 		filetype = self.fileinfo.get_text()
 		self.buffer1 = self.builder.get_object("textbuffer3")
+		getusecomment = self.builder.get_object("checkbutton21")
+		getcomment = self.builder.get_object("entry12")
+		usecomment = ("OFF", "ON")[getusecomment.get_active()]
 		head, tail = os.path.split(self.sfile)
 		outdir = home + tail + '/f5embed'
 		if not os.path.isdir(outdir):
@@ -28,7 +31,13 @@ class f5:
 		outfile = outdir + '/'+ tail
 		if self.sfile != '' and str.strip(f5pass) != '' and f5embedfile != None:
 			if "JPEG" in filetype:
-				cmd = stegprog + 'e -e ' + re.escape(f5embedfile) + ' -p ' + re.escape(f5pass) + ' -q ' + str(f5quality) + ' ' + re.escape(self.sfile) + ' ' + re.escape(outfile)
+				insertcomment = ''
+				if usecomment == "ON" and getcomment.get_text() != '':
+					insertcomment = ' -c ' + re.escape(getcomment.get_text())
+				else:
+					self.buffer1.set_text("If comment box checked you must enter a comment!")
+					self.showdiag()
+				cmd = stegprog + 'e -e ' + re.escape(f5embedfile) + ' -p ' + re.escape(f5pass) + ' -q ' + str(f5quality) + ' ' + insertcomment + ' ' + re.escape(self.sfile) + ' ' + re.escape(outfile)
 				print cmd
 				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
 				pid = proc.pid
@@ -37,7 +46,7 @@ class f5:
 				time.sleep(2)
 				os.system("kill " + str(pid) + ' ' + str(pid2))
 				print pid
-				self.buffer1.set_text("Output file should exist here: \n" + outfile)
+				self.buffer1.set_text("If successful the output file should exist here: \n" + outfile)
 				self.showdiag()
 			else:
 				self.buffer1.set_text("Input file must be jpeg!")
@@ -63,7 +72,7 @@ class f5:
 			if "JPEG" in filetype:
 				cmd = stegprog + 'x -p ' + re.escape(extpass) + ' -e ' + re.escape(outfile) + ' ' + re.escape(self.sfile)
 				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
-				self.buffer1.set_text("Output file should exist here: \n" + outfile)
+				self.buffer1.set_text("If successful the output file should exist here: \n" + outfile)
 				self.showdiag()
 			else:
 				self.buffer1.set_text("Input file must be jpeg!")
