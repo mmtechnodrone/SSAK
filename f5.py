@@ -33,7 +33,7 @@ class f5:
 			if "JPEG" in filetype:
 				insertcomment = ''
 				if usecomment =="ON" and getcomment.get_text() != "":
-					insertcomment = ' -c ' + re.escape(getcomment.get_text())
+					insertcomment = ' -c ' + re.escape(getcomment.get_text()) + '\ \ '
 				if usecomment == "ON" and getcomment.get_text() == "":
 					self.buffer1.set_text("If comment box checked you must enter a comment!")
 					self.showdiag()	
@@ -44,7 +44,7 @@ class f5:
 					pid = proc.pid
 					pid2 = int(proc.pid) + 1
 					print pid2
-					time.sleep(2)
+					time.sleep(6)
 					os.system("kill " + str(pid) + ' ' + str(pid2))
 					print pid
 					self.buffer1.set_text("If successful the output file should exist here: \n" + outfile)
