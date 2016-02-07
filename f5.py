@@ -25,9 +25,10 @@ class f5:
 		outdir = home + tail + '/f5embed'
 		if not os.path.isdir(outdir):
 			os.mkdir(outdir)
+		outfile = outdir + '/'+ tail
 		if self.sfile != '' and str.strip(f5pass) != '' and f5embedfile != None:
 			if "JPEG" in filetype:
-				cmd = stegprog + 'e -e ' + f5embedfile + ' -p ' + f5pass + ' -q ' + str(f5quality) + ' ' + self.sfile + ' ' + outdir + '/' + tail
+				cmd = stegprog + 'e -e ' + re.escape(f5embedfile) + ' -p ' + re.escape(f5pass) + ' -q ' + str(f5quality) + ' ' + re.escape(self.sfile) + ' ' + re.escape(outfile)
 				print cmd
 				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
 				pid = proc.pid
@@ -36,7 +37,7 @@ class f5:
 				time.sleep(2)
 				os.system("kill " + str(pid) + ' ' + str(pid2))
 				print pid
-				self.buffer1.set_text("Output file should exist here: \n" + outdir + '/' + tail)
+				self.buffer1.set_text("Output file should exist here: \n" + outfile)
 				self.showdiag()
 			else:
 				self.buffer1.set_text("Input file must be jpeg!")
@@ -55,13 +56,14 @@ class f5:
 		filetype = self.fileinfo.get_text()
 		head, tail = os.path.split(self.sfile)
 		outdir = home + tail + '/f5extract'
+		outfile = outdir + '/' + tail
 		if not os.path.isdir(outdir):
 			os.mkdir(outdir)
 		if self.sfile != '' and str.strip(extpass):
 			if "JPEG" in filetype:
-				cmd = stegprog + 'x -p ' + extpass + ' -e ' + outdir + '/' + tail + ' ' + self.sfile
+				cmd = stegprog + 'x -p ' + re.escape(extpass) + ' -e ' + re.escape(outfile) + ' ' + re.escape(self.sfile)
 				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
-				self.buffer1.set_text("Output file should exist here: \n" + outdir + '/' + tail)
+				self.buffer1.set_text("Output file should exist here: \n" + outfile)
 				self.showdiag()
 			else:
 				self.buffer1.set_text("Input file must be jpeg!")
