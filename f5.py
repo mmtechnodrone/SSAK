@@ -14,6 +14,8 @@ class f5:
 		f5embedfile = str(f5embedf.get_filename())
 		getf5quality = self.builder.get_object("spinbutton3")
 		f5quality = getf5quality.get_value_as_int()
+		gettimeout = self.builder.get_object("spinbutton4")
+		timeout = gettimeout.get_value_as_int()
 		self.getf5pass = self.builder.get_object("entry14")
 		f5pass = self.getf5pass.get_text()
 		self.file = self.builder.get_object("entry1")
@@ -44,10 +46,10 @@ class f5:
 					pid = proc.pid
 					pid2 = int(proc.pid) + 1
 					print pid2
-					time.sleep(6)
+					time.sleep(timeout)
 					os.system("kill " + str(pid) + ' ' + str(pid2))
 					print pid
-					self.buffer1.set_text("If successful the output file should exist here: \n" + outfile)
+					self.buffer1.set_text("If successful the output file should exist here: \n" + outfile + "\n If file is corrupt increase the timeout value.")
 					self.showdiag()
 			else:
 				self.buffer1.set_text("Input file must be jpeg!")
