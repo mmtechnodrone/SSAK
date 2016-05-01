@@ -30,6 +30,102 @@ class fileops:
 			chooser.destroy()
 		chooser.connect("delete-event", lambda window, event: chooser.hide() or True)
 
+	def ident(self):
+		self.outfile
+		cmd = 'file -b ' + re.escape(self.outfile)
+		proc = Popen(cmd, shell = True,stdout=PIPE).communicate()[0]
+		self.fileinfo = self.builder.get_object("entry3")
+		for cake in proc.splitlines():
+			print cake
+			if "ASCII" in cake:
+				os.rename(self.outfile,self.outfile + ".txt")
+				self.outfile = self.outfile + ".txt"
+			elif "PNG" in cake:
+				os.rename(self.outfile,self.outfile + ".png")
+				self.outfile = self.outfile + ".png"
+			elif "GIF" in cake:
+				os.rename(self.outfile,self.outfile + ".gif")
+				self.outfile = self.outfile + ".gif"
+			elif "PC bitmap" in cake:
+				os.rename(self.outfile,self.outfile + ".bmp")
+				self.outfile = self.outfile + ".bmp"
+			elif "SVG Scalable Vector Graphics image" in cake:
+				os.rename(self.outfile,self.outfile + ".svg")
+				self.outfile = self.outfile + ".svg"
+			elif "MP4" in cake:
+				os.rename(self.outfile,self.outfile + ".mp4")
+				self.outfile = self.ourfile + ".mp4"
+			elif "ISO 9660" in cake:
+				os.rename(self.outfile,self.outfile + ".iso")
+				self.outfile = self.outfile + ".iso"
+			elif "gzip" in cake:
+				os.rename(self.outfile,self.outfile + ".gz")
+				self.outfile = self.outfile + ".gz"
+			elif "7-zip" in cake:
+				os.rename(self.outfile,self.outfile + ".7z")
+				self.outfile = self.outfile + ".7z"
+			elif "Zip" in cake:
+				os.rename(self.outfile,self.outfile + ".zip")
+				self.outfile = self.outfile + ".zip"
+			elif "bzip2" in cake:
+				os.rename(self.outfile,self.outfile + ".bz2")
+				self.outfile = self.outfile + ".bz2"
+			elif "XZ compressed data" in cake:
+				os.rename(self.outfile,self.outfile + ".xz")
+				self.outfile = self.outfile + ".xz"
+			elif "HTML" in cake:
+				os.rename(self.outfile,self.outfile + ".html")
+				self.outfile = self.outfile + ".html"
+			elif "PDF" in cake:
+				os.rename(self.outfile,self.outfile + ".PDF")
+				self.outfile = self.outfile + ".pdf"
+			elif "XML document text" in cake:
+				os.rename(self.outfile,self.outfile + ".xml")
+				self.outfile = self.outfile + ".xml"
+			elif "Microsoft Word" in cake:
+				os.rename(self.outfile,self.outfile + ".doc")
+				self.outfile = self.outfile + ".doc"
+			elif "Microsoft PowerPoint" in cake:
+				os.rename(self.outfile,self.outfile + ".ppt")
+				self.outfile = self.outfile + ".ppt"
+			elif "OpenDocument Text" in cake:
+				os.rename(self.outfile,self.outfile + ".odt")
+				self.outfile = self.outfile + ".odt"
+			elif "OpenDocument Presentation" in cake:
+				os.rename(self.outfile,self.outfile + ".odp")
+				self.outfile = self.outfile + ".odp"
+			elif "PE32 executable (DLL) (GUI)" in cake:
+				os.rename(self.outfile,self.outfile + ".dll")
+				self.outfile = self.outfile + ".dll"
+			elif "PE32 executable (GUI)" in cake:
+				os.rename(self.outfile,self.outfile + ".exe")
+				self.outfile = self.outfile + ".exe"
+			elif "Java archive data" in cake:
+				os.rename(self.outfile,self.outfile + ".jar")
+				self.outfile = self.outfile + ".jar"
+			elif "POSIX shell script" in cake:
+				os.rename(self.outfile,self.outfile + ".sh")
+				self.outfile = self.outfile + ".sh"
+			elif "ELF 32-bit LSB shared object" in cake:
+				os.rename(self.outfile,self.outfile + ".so")
+				self.outfile = self.outfile + ".so"
+			elif "Debian binary package" in cake:
+				os.rename(self.outfile,self.outfile + ".deb")
+				self.outfile = self.outfile + ".deb"
+			elif "RPM" in cake:
+				os.rename(self.outfile,self.outfile + ".rpm")
+				self.outfile = self.outfile + ".rpm"
+			elif "MPEG ADTS, layer III" in cake:
+				os.rename(self.outfile,self.outfile + ".mp3")
+				self.outfile = self.outfile + ".mp3"
+			elif "Vorbis audio" in cake:
+				os.rename(self.outfile,self.outfile + ".ogg")
+				self.outfile = self.outfile + ".ogg"
+			elif "Python script" in cake:
+				os.rename(self.outfile,self.outfile + ".py")
+				self.outfile = self.outfile + ".py"
+
+
 	def exif(self, widget):
 		self.file = self.builder.get_object("entry1")
 		self.fileinfo = self.builder.get_object("entry3")
