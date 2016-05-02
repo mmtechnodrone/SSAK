@@ -31,7 +31,6 @@ class fileops:
 		chooser.connect("delete-event", lambda window, event: chooser.hide() or True)
 
 	def ident(self):
-		self.outfile
 		cmd = 'file -b ' + re.escape(self.outfile)
 		proc = Popen(cmd, shell = True,stdout=PIPE).communicate()[0]
 		self.fileinfo = self.builder.get_object("entry3")
@@ -54,7 +53,7 @@ class fileops:
 				self.outfile = self.outfile + ".svg"
 			elif "MP4" in cake:
 				os.rename(self.outfile,self.outfile + ".mp4")
-				self.outfile = self.ourfile + ".mp4"
+				self.outfile = self.outfile + ".mp4"
 			elif "ISO 9660" in cake:
 				os.rename(self.outfile,self.outfile + ".iso")
 				self.outfile = self.outfile + ".iso"

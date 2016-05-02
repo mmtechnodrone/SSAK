@@ -1,4 +1,4 @@
-import os, pwd, sys, pexpect, re, struct
+import os, pwd, sys, pexpect, re, struct, time
 
 home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
 execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
@@ -66,23 +66,38 @@ class jphs:
 				needwin = ("OFF", "ON")[checkwin.get_active()]
 				if needwin == "ON":
 					outdir = home + tail + '/jpseekwin'
-					progcmd = "/usr/bin/wine " + re.escape(execdir) + "/programs/Win/jpseek.exe " 
+					if not os.path.isdir(outdir):
+						os.mkdir(outdir)
+					self.outfile = outdir + '/' + tail + '.txt'
+					if os.path.isfile(self.outfile):
+						os.remove(self.outfile)
+					cmd = "/usr/bin/wine " + re.escape(execdir) + "/programs/Win/jpseek.exe " + re.escape(self.sfile) + " " + re.escape(self.outfile)
+
+					child = pexpect.spawn(cmd)
+					child.expect('Passphrase:')
+					child.sendline(self.spass)
+					child.expect(pexpect.EOF)
+					self.buffer1.set_text("Output file should be located here: " + self.outfile + "!")
+					self.showdiag()
+					os.chmod(self.outfile, 0o600)
+
 				else:
 					outdir = home + tail + '/jpseeklin'
-					progcmd = execdir + "/programs/" + arch + "/jpseek "
-				if not os.path.isdir(outdir):
-					os.mkdir(outdir)
-				self.outfile = outdir + '/' + tail + '.txt'
-				if os.path.isfile(self.outfile):
-					os.remove(self.outfile)
-				cmd = progcmd + re.escape(self.sfile) + " " + re.escape(self.outfile)
-				child = pexpect.spawn(cmd)
-				child.expect('Passphrase:')
-				child.sendline(self.spass)
-				child.expect(pexpect.EOF)
-				self.buffer1.set_text("Output file should be located here: " + self.outfile + "!")
-				self.showdiag()
-				os.chmod(self.outfile, 0o600)
+					if not os.path.isdir(outdir):
+						os.mkdir(outdir)
+					self.outfile = outdir + '/' + tail + '.txt'
+					if os.path.isfile(self.outfile):
+						os.remove(self.outfile)
+					cmd = execdir + "/programs/" + arch + "/jpseek " + re.escape(self.sfile) + " " + re.escape(self.outfile)
+					child = pexpect.spawn(cmd)
+					child.expect('Passphrase:')
+					child.sendline(self.spass)
+					child.expect(pexpect.EOF)
+					time.sleep(3)
+					self.ident()
+					self.buffer1.set_text("Output file should be located here: " + self.outfile + "!")
+					self.showdiag()
+					os.chmod(self.outfile, 0o600)
 			else:
 				self.buffer1.set_text("Input file must be jpeg!")
 				self.showdiag()
