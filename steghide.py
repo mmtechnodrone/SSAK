@@ -47,7 +47,7 @@ class steghide:
 			self.outfile2 = outdir + '/' + tail
 			if not os.path.isdir(outdir):
 				os.mkdir(outdir)
-			cmd = re.escape(execdir) + "/programs/" + arch +"/steghide --embed -ef " + self.steghidefile + options + encryption + " -cf " + re.escape(self.sfile) + " -sf " + self.outfile2 + " -p '" + self.hpass + "'"
+			cmd = re.escape(execdir) + "/programs/" + arch +"/steghide --embed -ef " + re.escape(self.steghidefile) + options + encryption + " -cf " + re.escape(self.sfile) + " -sf " + re.escape(self.outfile2) + " -p '" + self.hpass + "'"
 			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
 			line = str(proc.communicate()[1])
 			self.buffer1.set_text(line)
@@ -115,7 +115,20 @@ class steghide:
 				GObject.io_add_watch(proc.stdout, GObject.IO_IN | GObject.IO_HUP, test_io_watch)
 				GObject.idle_add(tester)
 		elif "button2" in self.activeradio:
-			cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p " + self.xpass + " -f -xf " + re.escape(self.outfile2)
+
+			cmd = re.escape(execdir) + "/programs/" + arch + "/steghide info " + re.escape(self.sfile) + " -p '" + self.xpass + "'''"
+			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
+			line = ''
+			for append in proc.stdout:
+				line += append
+			for append in proc.stderr:
+				line += append
+			if "embedded file" in line:
+				outfile = line.split ('"')
+				print outfile[3]
+				outfile = outdir + "/" + outfile[3]
+
+			cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p '" + self.xpass + "' -f -xf " + re.escape(outfile)
 			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
 			line = ''
 			for append in proc.stdout:
@@ -125,7 +138,7 @@ class steghide:
 			self.buffer1.set_text(line)
 			self.showdiag()
 		elif "button3" in self.activeradio:
-			cmd = re.escape(execdir) + "/programs/" + arch + "/steghide info " + re.escape(self.sfile) + " -p " + self.xpass + "''"
+			cmd = re.escape(execdir) + "/programs/" + arch + "/steghide info " + re.escape(self.sfile) + " -p '" + self.xpass + "'''"
 			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
 			line = ''
 			for append in proc.stdout:
