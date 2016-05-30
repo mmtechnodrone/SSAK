@@ -49,8 +49,8 @@ class steghide:
 				os.mkdir(outdir)
 			cmd = re.escape(execdir) + "/programs/" + arch +"/steghide --embed -ef " + re.escape(self.steghidefile) + options + encryption + " -cf " + re.escape(self.sfile) + " -sf " + re.escape(self.outfile2) + " -p '" + self.hpass + "'"
 			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
-			line = str(proc.communicate()[1])
-			self.buffer1.set_text(line)
+			embedline = str(proc.communicate()[1])
+			self.buffer1.set_text(embedline)
 			self.showdiag()
 		else:
 			self.buffer1.set_text("You must select a cover file from the file menu and a message file")
@@ -72,7 +72,7 @@ class steghide:
 		self.sfile = self.file.get_text()
 		head, tail = os.path.split(self.sfile)
 		outdir = home + tail + '/steghide_extract'
-		self.outfile2 = outdir + '/' + tail
+		self.outfile = outdir + '/' + tail
 		self.stegxchooser = self.builder.get_object("filechooserbutton6")
 		self.stegpassfile = str(self.stegxchooser.get_filename())
 		self.buffer1 = self.builder.get_object("textbuffer3")
@@ -90,7 +90,7 @@ class steghide:
 				self.showdiag()
 			else:
 				self.line = ''
-				cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -f -pf " + re.escape(self.stegpassfile) + " -xf " + re.escape(self.outfile2)
+				cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -f -pf " + re.escape(self.stegpassfile) + " -xf " + re.escape(self.outfile)
 				self.steghcrackstatus()			
 				proc = Popen("exec " + cmd, shell=True, stderr=PIPE, stdout=PIPE)
 				self.pid = proc.pid
@@ -99,9 +99,8 @@ class steghide:
 					if out == '':
 						return False
 					self.line += out
-					if "Done" in out:
-						line2 = out
 					if "Done" in self.line:
+						line2 = out
 						outpass = self.line.split ("'")
 						outpass = outpass[3]
 						cmd = re.escape(execdir) + "/programs/" + arch + "/steghide info " + re.escape(self.sfile) + " -p '" + outpass + "'''"
@@ -112,15 +111,19 @@ class steghide:
 						for append in proc.stderr:
 							line += append
 						if "embedded file" in line:
-							outfile = line.split ('"')
-							outfile = outdir + "/" + outfile[3]
-						cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p '" + re.escape(outpass) + "' -f -xf " + re.escape(outfile)
-						proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
-						for append in proc.stdout:
-							line2 += append
-						for append in proc.stderr:
-							line2 += append
-						self.buffer1.set_text(line2)
+							outfile2 = line.split ('"')
+							outfile2 = outdir + "/" + outfile2[3]
+							cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p '" + re.escape(outpass) + "' -f -xf " + re.escape(outfile2)
+							proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
+							for append in proc.stdout:
+								line2 += append
+							for append in proc.stderr:
+								line2 += append
+							os.remove(self.outfile)
+							self.buffer1.set_text(line2)
+						elif "embedded data" in line:
+							self.ident()
+							self.buffer1.set_text(line2 + "Output file is " + self.outfile)
 					else:
 						self.buffer1.set_text("Unable to find password with provided dictionary")
 					return True
@@ -133,8 +136,7 @@ class steghide:
 					else:
 						self.progresswindow.hide()
 						if not "yes" in self.dontshow:	
-							if os.path.exists(self.outfile2):
-								os.remove(self.outfile2)				
+			
 							self.showdiag()
 				GObject.io_add_watch(proc.stderr, GObject.IO_IN | GObject.IO_HUP, test_io_watch)
 				GObject.io_add_watch(proc.stdout, GObject.IO_IN | GObject.IO_HUP, test_io_watch)
@@ -150,15 +152,26 @@ class steghide:
 			if "embedded file" in line:
 				outfile = line.split ('"')
 				outfile = outdir + "/" + outfile[3]
-			cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p '" + self.xpass + "' -f -xf " + re.escape(outfile)
-			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
-			line = ''
-			for append in proc.stdout:
-				line += append
-			for append in proc.stderr:
-				line += append
-			self.buffer1.set_text(line)
-			self.showdiag()
+				cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p '" + self.xpass + "' -f -xf " + re.escape(outfile)
+				proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
+				line = ''
+				for append in proc.stdout:
+					line += append
+				for append in proc.stderr:
+					line += append
+				self.buffer1.set_text(line)
+				self.showdiag()
+			elif "embedded data" in line:
+				cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p '" + self.xpass + "' -f -xf " + re.escape(self.outfile)
+				proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
+				line = ''
+				for append in proc.stdout:
+					line += append
+				for append in proc.stderr:
+					line += append
+				self.ident()
+				self.buffer1.set_text("wrote extracted data to " + self.outfile)
+				self.showdiag()
 		elif "button3" in self.activeradio:
 			cmd = re.escape(execdir) + "/programs/" + arch + "/steghide info " + re.escape(self.sfile) + " -p '" + self.xpass + "'''"
 			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
