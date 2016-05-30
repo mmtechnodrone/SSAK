@@ -172,6 +172,9 @@ class steghide:
 				self.ident()
 				self.buffer1.set_text("wrote extracted data to " + self.outfile)
 				self.showdiag()
+			else:
+				self.buffer1.set_text(line)
+				self.showdiag()
 		elif "button3" in self.activeradio:
 			cmd = re.escape(execdir) + "/programs/" + arch + "/steghide info " + re.escape(self.sfile) + " -p '" + self.xpass + "'''"
 			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
