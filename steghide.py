@@ -99,6 +99,30 @@ class steghide:
 					if out == '':
 						return False
 					self.line += out
+					if "Done" in out:
+						line2 = out
+					if "Done" in self.line:
+						outpass = self.line.split ("'")
+						outpass = outpass[3]
+						cmd = re.escape(execdir) + "/programs/" + arch + "/steghide info " + re.escape(self.sfile) + " -p '" + outpass + "'''"
+						proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
+						line = ''
+						for append in proc.stdout:
+							line += append
+						for append in proc.stderr:
+							line += append
+						if "embedded file" in line:
+							outfile = line.split ('"')
+							outfile = outdir + "/" + outfile[3]
+						cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p '" + re.escape(outpass) + "' -f -xf " + re.escape(outfile)
+						proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
+						for append in proc.stdout:
+							line2 += append
+						for append in proc.stderr:
+							line2 += append
+						self.buffer1.set_text(line2)
+					else:
+						self.buffer1.set_text("Unable to find password with provided dictionary")
 					return True
 				def tester():
 					if proc.poll() is None:
@@ -108,14 +132,14 @@ class steghide:
 						return True	
 					else:
 						self.progresswindow.hide()
-						self.buffer1.set_text(self.line)
-						if not "yes" in self.dontshow:					
+						if not "yes" in self.dontshow:	
+							if os.path.exists(self.outfile2):
+								os.remove(self.outfile2)				
 							self.showdiag()
 				GObject.io_add_watch(proc.stderr, GObject.IO_IN | GObject.IO_HUP, test_io_watch)
 				GObject.io_add_watch(proc.stdout, GObject.IO_IN | GObject.IO_HUP, test_io_watch)
 				GObject.idle_add(tester)
 		elif "button2" in self.activeradio:
-
 			cmd = re.escape(execdir) + "/programs/" + arch + "/steghide info " + re.escape(self.sfile) + " -p '" + self.xpass + "'''"
 			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
 			line = ''
@@ -125,9 +149,7 @@ class steghide:
 				line += append
 			if "embedded file" in line:
 				outfile = line.split ('"')
-				print outfile[3]
 				outfile = outdir + "/" + outfile[3]
-
 			cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p '" + self.xpass + "' -f -xf " + re.escape(outfile)
 			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
 			line = ''
