@@ -5,33 +5,22 @@ from subprocess import Popen, PIPE
 home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
 execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-arch = str(8 * struct.calcsize("P"))
-
 class stegdetect:
 
 	def showprogress(self):
 		def hideprogress(widget):
 			os.system("kill " + str(self.pid))
 			self.showstatus.hide()
-		self.showstatus = self.builder.get_object("dialog2")
-		self.statusbutton = self.builder.get_object("button12")
 		self.statusbutton.connect("clicked",hideprogress)
 		self.showstatus.show()
 
 	def stegdet(self, widget):
-		checkbuttonjs = self.builder.get_object("checkbutton5")
-		jsteg = ("OFF", "ON")[checkbuttonjs.get_active()]
-		checkbuttonog = self.builder.get_object("checkbutton6")
-		outguess = ("OFF", "ON")[checkbuttonog.get_active()]
-		checkbuttonjph = self.builder.get_object("checkbutton7")
-		jphide = ("OFF", "ON")[checkbuttonjph.get_active()]
-		checkbuttoninv = self.builder.get_object("checkbutton8")
-		invisible = ("OFF", "ON")[checkbuttoninv.get_active()]
-		checkbuttonf5 = self.builder.get_object("checkbutton9")
-		f5 = ("OFF", "ON")[checkbuttonf5.get_active()]
-		checkbuttonca = self.builder.get_object("checkbutton10")
-		camapp = ("OFF", "ON")[checkbuttonca.get_active()]
-		self.buffer1 = self.builder.get_object("textbuffer3")
+		jsteg = ("OFF", "ON")[self.checkbuttonjs.get_active()]
+		outguess = ("OFF", "ON")[self.checkbuttonog.get_active()]
+		jphide = ("OFF", "ON")[self.checkbuttonjph.get_active()]
+		invisible = ("OFF", "ON")[self.checkbuttoninv.get_active()]
+		f5 = ("OFF", "ON")[self.checkbuttonf5.get_active()]
+		camapp = ("OFF", "ON")[self.checkbuttonca.get_active()]
 		tests = "-t "
 		if jsteg == "ON":
 			tests += "j"
@@ -45,21 +34,16 @@ class stegdetect:
 			tests += "F"
 		if camapp == "ON":
 			tests += "a"
-		sensitivity = self.builder.get_object("spinbutton1")
-		size = sensitivity.get_value_as_int()
-		self.buffer = self.builder.get_object("textbuffer5")
-		self.file = self.builder.get_object("entry1")
+		size = self.sensitivity.get_value_as_int()
 		self.sfile = self.file.get_text()
-		checkdir = self.builder.get_object("checkbutton4")
-		wholedir = ("OFF", "ON")[checkdir.get_active()]
+		wholedir = ("OFF", "ON")[self.checkdir.get_active()]
 		if wholedir == "ON" or self.sfile != "":
-			self.dircheck = self.builder.get_object("filechooserbutton3")
 			directory = self.dircheck.get_uri()
 			if wholedir == "ON" and directory == None:
 				self.buffer1.set_text("You need to select a directory")
 				self.showdiag()
 			elif wholedir == "OFF":
-				cmd = re.escape(execdir) + "/programs/" + arch + "/stegdetect " + tests + " -s " + str(size) + " " + re.escape(self.sfile)
+				cmd = re.escape(execdir) + "/programs/" + self.arch + "/stegdetect " + tests + " -s " + str(size) + " " + re.escape(self.sfile)
 				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
 				line = ''
 				for append in proc.stdout:
@@ -70,7 +54,7 @@ class stegdetect:
 				self.showdiag()
 			elif wholedir == "ON":
 				cdir = urlparse.urlparse(directory).path
-				cmd = re.escape(execdir) + "/programs/" + arch + "/stegdetect " + tests + " -s " + str(size) + " " + re.escape(cdir) + "/*.jpg " + re.escape(cdir) + "/*.jpeg"
+				cmd = re.escape(execdir) + "/programs/" + self.arch + "/stegdetect " + tests + " -s " + str(size) + " " + re.escape(cdir) + "/*.jpg " + re.escape(cdir) + "/*.jpeg"
 				proc = Popen(cmd, shell = True, stderr=PIPE, stdout=PIPE)
 				line = ''
 				for append in proc.stdout:
@@ -88,19 +72,11 @@ class stegdetect:
 			self.showdiag()
 
 	def stegcrack(self, widget):
-		self.buffer1 = self.builder.get_object("textbuffer6")
-		checkoutguess = self.builder.get_object("checkbutton11")
-		outguess = ("OFF", "ON")[checkoutguess.get_active()]
-		checkjph = self.builder.get_object("checkbutton12")
-		jphide = ("OFF", "ON")[checkjph.get_active()]
-		checkjsteg = self.builder.get_object("checkbutton13")
-		jsteg = ("OFF", "ON")[checkjsteg.get_active()]
-		self.dict = self.builder.get_object("filechooserbutton4")
+		outguess = ("OFF", "ON")[self.checkoutguess.get_active()]
+		jphide = ("OFF", "ON")[self.checkjph.get_active()]
+		jsteg = ("OFF", "ON")[self.checkjsteg.get_active()]
 		dictionary = self.dict.get_filename()
-		self.file = self.builder.get_object("entry1")
 		self.sfile = self.file.get_text()
-		self.tw = self.builder.get_object("textview7")
-		self.sw = self.builder.get_object("scrolledwindow6")
 		tests = " -t "
 		if outguess == "ON":
 			tests += "o"
@@ -110,8 +86,8 @@ class stegdetect:
 			tests += "j"
 
 		if self.sfile != '' and dictionary != None:
-			self.buffer1.set_text("Please Wait \n")
-			cmd = re.escape(execdir) + "/programs/" + arch + "/stegbreak " + tests + " -r " + re.escape(execdir) + "/programs/noarch/rules.ini -f " + re.escape(dictionary) + " " + self.sfile
+			self.buffer3.set_text("Please Wait \n")
+			cmd = re.escape(execdir) + "/programs/" + self.arch + "/stegbreak " + tests + " -r " + re.escape(execdir) + "/programs/noarch/rules.ini -f " + re.escape(dictionary) + " " + self.sfile
 			self.showprogress()
 			p = Popen("exec " + cmd, shell=True, stdout=PIPE, stderr=PIPE)
 			self.pid = p.pid
@@ -119,8 +95,8 @@ class stegdetect:
 				out = f.readline()
 				if out == '':
 					return False
-				end_iter = self.buffer1.get_end_iter()
-				self.buffer1.insert(end_iter, out)
+				end_iter = self.buffer3.get_end_iter()
+				self.buffer3.insert(end_iter, out)
 				adj = self.sw.get_vadjustment()
 				adj.set_value(adj.get_upper() - adj.get_page_size())
 				return True
@@ -135,8 +111,7 @@ class stegdetect:
 				os.system("kill -s 2 " + str(self.pid))
 			GObject.idle_add(tester)
 		else:
-			newbuff = self.builder.get_object("textbuffer3")
-			newbuff.set_text("You must select a stego file and a dictionary file.")
+			self.buffer1.set_text("You must select a stego file and a dictionary file.")
 			self.showdiag()
 
 

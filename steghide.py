@@ -5,27 +5,17 @@ from subprocess import Popen, PIPE
 home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
 execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-arch = str(8 * struct.calcsize("P"))
-
 class steghide:
 	
 	def stegembed(self, widget):
-		checkcompress = self.builder.get_object("checkbutton14")
-		compress = ("OFF", "ON")[checkcompress.get_active()]
-		checksum = self.builder.get_object("checkbutton15")
-		sumit = ("OFF", "ON")[checksum.get_active()]
-		checkname = self.builder.get_object("checkbutton16")
-		nameit = ("OFF", "ON")[checkname.get_active()]
-		self.enctype = self.builder.get_object("comboboxtext3")
+		compress = ("OFF", "ON")[self.checkcompress.get_active()]
+		sumit = ("OFF", "ON")[self.checksum.get_active()]
+		nameit = ("OFF", "ON")[self.checkname.get_active()]
 		self.enc = (self.enctype.get_active_text())
-		self.steghpass = self.builder.get_object("entry8")
 		self.hpass = self.steghpass.get_text()
-		self.steghchooser = self.builder.get_object("filechooserbutton5")
 		self.steghchooser.connect("delete-event", lambda window, event: self.steghchooser.destroy() or True)
 		self.steghidefile = str(self.steghchooser.get_filename())
-		self.file = self.builder.get_object("entry1")
 		self.sfile = self.file.get_text()
-		self.buffer1 = self.builder.get_object("textbuffer3")
 		options = " -f "
 		if compress == "OFF":
 			options += " -Z "
@@ -47,7 +37,7 @@ class steghide:
 			self.outfile2 = outdir + '/' + tail
 			if not os.path.isdir(outdir):
 				os.mkdir(outdir)
-			cmd = re.escape(execdir) + "/programs/" + arch +"/steghide --embed -ef " + re.escape(self.steghidefile) + options + encryption + " -cf " + re.escape(self.sfile) + " -sf " + re.escape(self.outfile2) + " -p '" + self.hpass + "'"
+			cmd = re.escape(execdir) + "/programs/" + self.arch +"/steghide --embed -ef " + re.escape(self.steghidefile) + options + encryption + " -cf " + re.escape(self.sfile) + " -sf " + re.escape(self.outfile2) + " -p '" + self.hpass + "'"
 			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
 			embedline = str(proc.communicate()[1])
 			self.buffer1.set_text(embedline)
@@ -61,23 +51,16 @@ class steghide:
 			os.system("kill " + str(self.pid))
 			self.dontshow = "yes"
 			self.progresswindow.hide()
-		self.quitbutton = self.builder.get_object("button15")
 		self.quitbutton.connect("clicked", hidestatus)
 		self.progresswindow.show()
 
 	def stegextract(self, widget):
-		self.stegxpass = self.builder.get_object("entry9")
 		self.xpass = self.stegxpass.get_text()
-		self.file = self.builder.get_object("entry1")
 		self.sfile = self.file.get_text()
 		head, tail = os.path.split(self.sfile)
 		outdir = home + tail + '/steghide_extract'
 		self.outfile = outdir + '/' + tail
-		self.stegxchooser = self.builder.get_object("filechooserbutton6")
 		self.stegpassfile = str(self.stegxchooser.get_filename())
-		self.buffer1 = self.builder.get_object("textbuffer3")
-		self.progressbar = self.builder.get_object("progressbar1")
-		self.progresswindow = self.builder.get_object("window2")
 		if not os.path.isdir(outdir):
 			os.mkdir(outdir)
 		self.dontshow = "no"
@@ -90,7 +73,7 @@ class steghide:
 				self.showdiag()
 			else:
 				self.line = ''
-				cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -f -pf " + re.escape(self.stegpassfile) + " -xf " + re.escape(self.outfile)
+				cmd = re.escape(execdir) + "/programs/" + self.arch + "/steghide extract -sf " + re.escape(self.sfile) + " -f -pf " + re.escape(self.stegpassfile) + " -xf " + re.escape(self.outfile)
 				self.steghcrackstatus()			
 				proc = Popen("exec " + cmd, shell=True, stderr=PIPE, stdout=PIPE)
 				self.pid = proc.pid
@@ -103,7 +86,7 @@ class steghide:
 						line2 = out
 						outpass = self.line.split ("'")
 						outpass = outpass[3]
-						cmd = re.escape(execdir) + "/programs/" + arch + "/steghide info " + re.escape(self.sfile) + " -p '" + outpass + "'''"
+						cmd = re.escape(execdir) + "/programs/" + self.arch + "/steghide info " + re.escape(self.sfile) + " -p '" + outpass + "'''"
 						proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
 						line = ''
 						for append in proc.stdout:
@@ -113,7 +96,7 @@ class steghide:
 						if "embedded file" in line:
 							outfile2 = line.split ('"')
 							outfile2 = outdir + "/" + outfile2[3]
-							cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p '" + re.escape(outpass) + "' -f -xf " + re.escape(outfile2)
+							cmd = re.escape(execdir) + "/programs/" + self.arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p '" + re.escape(outpass) + "' -f -xf " + re.escape(outfile2)
 							proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
 							for append in proc.stdout:
 								line2 += append
@@ -142,7 +125,7 @@ class steghide:
 				GObject.io_add_watch(proc.stdout, GObject.IO_IN | GObject.IO_HUP, test_io_watch)
 				GObject.idle_add(tester)
 		elif "button2" in self.activeradio:
-			cmd = re.escape(execdir) + "/programs/" + arch + "/steghide info " + re.escape(self.sfile) + " -p '" + self.xpass + "'''"
+			cmd = re.escape(execdir) + "/programs/" + self.arch + "/steghide info " + re.escape(self.sfile) + " -p '" + self.xpass + "'''"
 			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
 			line = ''
 			for append in proc.stdout:
@@ -152,7 +135,7 @@ class steghide:
 			if "embedded file" in line:
 				outfile = line.split ('"')
 				outfile = outdir + "/" + outfile[3]
-				cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p '" + self.xpass + "' -f -xf " + re.escape(outfile)
+				cmd = re.escape(execdir) + "/programs/" + self.arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p '" + self.xpass + "' -f -xf " + re.escape(outfile)
 				proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
 				line = ''
 				for append in proc.stdout:
@@ -162,7 +145,7 @@ class steghide:
 				self.buffer1.set_text(line)
 				self.showdiag()
 			elif "embedded data" in line:
-				cmd = re.escape(execdir) + "/programs/" + arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p '" + self.xpass + "' -f -xf " + re.escape(self.outfile)
+				cmd = re.escape(execdir) + "/programs/" + self.arch + "/steghide extract -sf " + re.escape(self.sfile) + " -p '" + self.xpass + "' -f -xf " + re.escape(self.outfile)
 				proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
 				line = ''
 				for append in proc.stdout:
@@ -176,7 +159,7 @@ class steghide:
 				self.buffer1.set_text(line)
 				self.showdiag()
 		elif "button3" in self.activeradio:
-			cmd = re.escape(execdir) + "/programs/" + arch + "/steghide info " + re.escape(self.sfile) + " -p '" + self.xpass + "'''"
+			cmd = re.escape(execdir) + "/programs/" + self.arch + "/steghide info " + re.escape(self.sfile) + " -p '" + self.xpass + "'''"
 			proc = Popen(cmd, shell=True, stderr=PIPE, stdout=PIPE)
 			line = ''
 			for append in proc.stdout:

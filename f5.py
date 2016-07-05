@@ -5,27 +5,16 @@ home = pwd.getpwuid(os.getuid()).pw_dir + '/SSAK/'
 execdir = os.path.dirname(os.path.realpath(sys.argv[0]))
 stegprog = 'java -jar ' + re.escape(execdir) + '/programs/noarch/f5.jar '
 
-arch = str(8 * struct.calcsize("P"))
-
 class f5:
 
 	def f5embed(self, widget):
-		f5embedf = self.builder.get_object("filechooserbutton9")
-		f5embedfile = str(f5embedf.get_filename())
-		getf5quality = self.builder.get_object("spinbutton3")
-		f5quality = getf5quality.get_value_as_int()
-		gettimeout = self.builder.get_object("spinbutton4")
-		timeout = gettimeout.get_value_as_int()
-		self.getf5pass = self.builder.get_object("entry14")
+		self.f5embedfile = str(self.f5embedf.get_filename())
+		f5quality = self.getf5quality.get_value_as_int()
+		timeout = self.gettimeout.get_value_as_int()
 		f5pass = self.getf5pass.get_text()
-		self.file = self.builder.get_object("entry1")
 		self.sfile = self.file.get_text()
-		self.fileinfo = self.builder.get_object("entry3")
 		filetype = self.fileinfo.get_text()
-		self.buffer1 = self.builder.get_object("textbuffer3")
-		getusecomment = self.builder.get_object("checkbutton21")
-		getcomment = self.builder.get_object("entry12")
-		usecomment = ("OFF", "ON")[getusecomment.get_active()]
+		usecomment = ("OFF", "ON")[self.getusecomment.get_active()]
 		head, tail = os.path.split(self.sfile)
 		outdir = home + tail + '/f5embed'
 		if not os.path.isdir(outdir):
@@ -34,7 +23,7 @@ class f5:
 		if self.sfile != '' and str.strip(f5pass) != '' and f5embedfile != None:
 			if "JPEG" in filetype:
 				insertcomment = ''
-				if usecomment =="ON" and getcomment.get_text() != "":
+				if usecomment =="ON" and self.getcomment.get_text() != "":
 					insertcomment = ' -c ' + re.escape(getcomment.get_text()) + '\ \ '
 				if usecomment == "ON" and getcomment.get_text() == "":
 					self.buffer1.set_text("If comment box checked you must enter a comment!")
@@ -59,12 +48,8 @@ class f5:
 			self.showdiag()
 
 	def f5extract(self, widget):
-		self.buffer1 = self.builder.get_object("textbuffer3")
-		self.file = self.builder.get_object("entry1")
 		self.sfile = self.file.get_text()
-		self.f5extpass = self.builder.get_object("entry13")
 		extpass = self.f5extpass.get_text()
-		self.fileinfo = self.builder.get_object("entry3")
 		filetype = self.fileinfo.get_text()
 		head, tail = os.path.split(self.sfile)
 		outdir = home + tail + '/f5extract'
