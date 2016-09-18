@@ -3,5 +3,4 @@ python pexpect - for jphs
 python vte - for terminal support in tools 
 java - for openstego, exif(metadata-extractor2), f5 - need java 7 or greater
 wine - needed to use Windows executables (jphs, stegbreak only work on Windows version of jphs)
-vb6run (for stegspy) - can use winetricks to install (winetricks install vb6run)
-python-vte
+vb6run (for stegspy) - this is now done automatically with a custom wineprefix and winetricks
