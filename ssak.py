@@ -9,7 +9,6 @@ from stegdetect import stegdetect
 from steghide import steghide
 from outguess import outguess
 from f5 import f5
-from depcheck import depcheck
 from gtkvars import gtkvars
 from subprocess import Popen, PIPE
 
@@ -21,11 +20,11 @@ try:
 except:
 	os.mkdir(home)
 
-class SSAK(depcheck, gtkvars, openstego, jphs, fileops, stegdetect, steghide, outguess, f5):
+class SSAK(gtkvars, openstego, jphs, fileops, stegdetect, steghide, outguess, f5):
 
 	def spy(self, widget):
 		os.environ["WINEDEBUG"] = "warn-all,-heap,-relay,err-all,fixme-all,trace-all"
-		cmd = "/usr/bin/wine " + re.escape(execdir) + "/programs/Win/StegSpy2.1.exe"
+		cmd = "WINEPREFIX=" + re.escape(home) + "wineprefix /usr/bin/wine " + re.escape(execdir) + "/programs/Win/StegSpy2.1.exe"
 		Popen(cmd, shell=True)
 
 	def diitrun(self, widget):
@@ -34,7 +33,7 @@ class SSAK(depcheck, gtkvars, openstego, jphs, fileops, stegdetect, steghide, ou
 
 	def bmppackerrun(self, widget):
 		os.environ["WINEDEBUG"] = "warn-all,-heap,-relay,err-all,fixme-all,trace-all"
-		cmd3 = "/usr/bin/wine " + re.escape(execdir) + "/programs/Win/bmpPacker.exe"
+		cmd3 = "WINEPREFIX=" + re.escape(home) + "wineprefix /usr/bin/wine " + re.escape(execdir) + "/programs/Win/bmpPacker.exe"
 		Popen(cmd3, shell=True)
 
 	def launchterm(self, widget):
@@ -57,6 +56,11 @@ class SSAK(depcheck, gtkvars, openstego, jphs, fileops, stegdetect, steghide, ou
 		self.nofiledialog.connect("delete-event", lambda window, event: self.nofiledialog.hide() or True)
 
 	def __init__(self):
+		if (os.path.isdir(home + "wineprefix")) == False:
+			os.environ["WINEDEBUG"] = "warn-all,-heap,-relay,err-all,fixme-all,trace-all"
+			os.environ["WINEPREFIX"] = home + "/wineprefix"
+			cmd = re.escape(execdir) + "/programs/noarch/winetricks.sh vb6run"
+			Popen(cmd, shell=True)
 		gladefile = execdir + "/SSAK.glade"
 		self.builder = Gtk.Builder()
 		self.builder.add_from_file(gladefile)

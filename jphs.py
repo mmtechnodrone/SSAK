@@ -7,6 +7,7 @@ class jphs:
 
 	def jphideit2(self, widget):
 		os.environ["WINEDEBUG"] = "warn-all,-heap,-relay,err-all,fixme-all,trace-all"
+		os.environ["WINEPREFIX"] = home + "/wineprefix"
 		self.sfile = self.file.get_text()
 		self.spass = self.password.get_text()
 		self.hidefile = self.fchooser.get_filename()
@@ -44,6 +45,7 @@ class jphs:
 
 	def jpseekit2(self, widget):
 		os.environ["WINEDEBUG"] = "warn-all,-heap,-relay,err-all,fixme-all,trace-all"
+		os.environ["WINEPREFIX"] = home + "/wineprefix"
 		self.sfile = self.file.get_text()
 		self.spass2 = self.password2.get_text()
 		filetype = self.fileinfo.get_text()
