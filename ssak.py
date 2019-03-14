@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import sys, pygtk, gi, os, re, pwd, struct
+gi.require_version('Gtk', '3.0')
+gi.require_version('Vte', '2.91')
 from gi.repository import Gtk, GLib, Vte
 from openstego import openstego
 from jphs import jphs
