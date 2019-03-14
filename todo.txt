@@ -1,4 +1,4 @@
-Add GUI sections for f5, Jsteg and StegExplore
+Fix strings processing (somehow broken in current python/gtk/glade)
 Add documentation entry.
 Customize look with CSS.
 Implelement settings which can control parts of the program.
@@ -6,5 +6,3 @@ Implement text search and possibly dictionary search on strings output.
 Possibly include menu item to open in hex editor
 Display detailed notification when cover file is to small to embed hidden messages in JPHS
 Try and speed up OpenStego dictionary attack with threading.
-
-
